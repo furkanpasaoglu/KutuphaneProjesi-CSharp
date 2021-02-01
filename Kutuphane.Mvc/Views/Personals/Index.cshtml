@@ -1,0 +1,39 @@
+﻿@model Kutuphane.MVC.Models.ListView.PersonalListViewModel
+@{
+    ViewData["Title"] = "Personeller";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Personeller</h1>
+
+@using (Html.BeginForm("Index", "Personals", FormMethod.Get))
+{
+    <div style="margin-bottom: 15px; margin-top: 15px;">
+        <b>Aranacak Personel Adını Girin:</b>
+        @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>PERSONEL ID</th>
+            <th>PERSONEL ADI</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Personals)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td><a href="/Personals/DeletePersonal/@p.Id" onclick="return confirm('Silmek İstediğinizden Emin misiniz?');" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Personals/UpdatePersonal/@p.Id" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Personals/AddPersonal" class="btn btn-primary">Yeni Personel Ekle</a>

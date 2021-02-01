@@ -1,0 +1,43 @@
+﻿@model Kutuphane.MVC.Models.ListView.CategoryListViewModel
+@{
+    ViewData["Title"] = "Kategoriler";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<h2>Kategoriler</h2>
+
+@using (Html.BeginForm("Index", "Categories", FormMethod.Get))
+{
+    <div style="margin-bottom: 15px; margin-top: 15px;">
+        <b>Aranacak Kategori Adını Girin:</b>
+        @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </div>
+}
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>KATEGORİ ID</th>
+            <th>KATEGORİ ADI</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ctg in Model.Categories)
+        {
+            <tr>
+                <td>@ctg.Id</td>
+                <td>@ctg.Name</td>
+                <td><a href="/Categories/DeleteCategory/@ctg.Id" onclick="return confirm('Silmek İstediğinizden Emin misiniz?');" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Categories/UpdateCategory/@ctg.Id" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Categories/AddCategory" class="btn btn-primary">Yeni Kategori Ekle</a>
+
+

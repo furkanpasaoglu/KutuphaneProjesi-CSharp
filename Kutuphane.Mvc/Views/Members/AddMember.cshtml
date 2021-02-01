@@ -1,0 +1,63 @@
+﻿@model Kutuphane.Entities.Concrete.Member
+@{
+    ViewData["Title"] = "Üye Ekle";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+
+    <div style="margin-top: 15px">
+        <label>Üye Adı</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Üye Adını Giriniz..." })
+        @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Üye Soyadı</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", placeholder = "Üye Soyadını Giriniz...", required = "" })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Mail</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Mail, new { @class = "form-control", placeholder = "Mail Giriniz...", required = "" })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Kullanıcı Adı</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Kullanıcı Adı Giriniz..." })
+        @Html.ValidationMessageFor(x => x.Username, "", new { @style = "color:red" })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Kullanıcı Şifresi</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", placeholder = "Kullanıcı Şifresini Giriniz..." })
+        @Html.ValidationMessageFor(x => x.Password, "", new { @style = "color:red" })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Fotoğraf</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Photo, new { @class = "form-control", placeholder = "Fotoğraf Linki Giriniz..." })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Telefon</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", placeholder = "Telefon Giriniz..." })
+    </div>
+
+    <div style="margin-top: 15px">
+        <label>Okul</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.School, new { @class = "form-control", placeholder = "Okul Bilgisi Giriniz..." })
+    </div>
+
+    <div style="margin-top: 15px">
+        <button class="btn btn-info" id="Btn1">Personel Ekle</button>
+    </div>
+</form>

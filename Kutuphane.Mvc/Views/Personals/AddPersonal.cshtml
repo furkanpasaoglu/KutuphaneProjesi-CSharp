@@ -1,0 +1,19 @@
+﻿@model Kutuphane.Entities.Concrete.Personal
+
+@{
+    ViewData["Title"] = "Personel Ekle";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div style="margin-top: 15px">
+        <label>Personel Adı</label>
+        @*<input type="text" class="form-control" name="Name" required="" placeholder="Personel İsmi Giriniz..." />*@
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Personel İsmi Giriniz..." })
+        @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color:red" })
+    </div>
+    <div style="margin-top: 15px">
+        <button class="btn btn-info" id="Btn1">Personel Ekle</button>
+    </div>
+</form>
+

@@ -1,0 +1,44 @@
+﻿@model Kutuphane.MVC.Models.ListView.AuthorListViewModel
+@{
+    ViewData["Title"] = "Yazarlar";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h2>Yazarlar</h2>
+
+@using (Html.BeginForm("Index", "Authors", FormMethod.Get))
+{
+    <div style="margin-bottom: 15px; margin-top: 15px;">
+        <b>Aranacak Yazar Adını Girin:</b>
+        @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>YAZAR ID</th>
+            <th>YAZAR ADI</th>
+            <th>YAZAR SOYADI</th>
+            <th>YAZAR DETAY</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var wr in Model.Authors)
+        {
+            <tr>
+                <td>@wr.Id</td>
+                <td>@wr.Name</td>
+                <td>@wr.Surname</td>
+                <td>@wr.Details</td>
+                <td>@Html.ActionLink("Sil", "DeleteAuthor", "Authors", new { id = wr.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstediğinizden Emin misiniz?');" })</td>
+                <td><a href="/Authors/UpdateAuthor/@wr.Id" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Authors/AddAuthor" class="btn btn-primary">Yeni Yazar Ekle</a>
+

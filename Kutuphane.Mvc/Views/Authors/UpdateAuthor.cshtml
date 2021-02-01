@@ -1,0 +1,33 @@
+﻿@model Kutuphane.Entities.Concrete.Author
+@{
+    ViewData["Title"] = "YazarGüncelle";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateAuthor", "Authors", FormMethod.Post))
+{
+    <div style="margin-bottom: 15px"></div>
+    <div class="form-group">
+        <div style="margin-bottom: 15px">
+            <label>Yazar ID</label>
+            @Html.TextBoxFor(k => k.Id, new { @class = "form-control", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Yazar Adı</label>
+            @Html.TextBoxFor(k => k.Name, new { @class = "form-control", required = "", placeholder = "Yazar Adı Giriniz..." })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Yazar SoyAdı</label>
+            @Html.TextBoxFor(k => k.Surname, new { @class = "form-control", required = "", placeholder = "Yazar SoyAdı Giriniz..." })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Yazar Detay Bilgileri</label>
+            @Html.TextAreaFor(k => k.Details, new { @class = "form-control", placeholder = "Yazar Detay Bilgileri Giriniz..." })
+        </div>
+        <div>
+            <button onclick="return confirm('Güncellemek İstediğinizden Emin misiniz?');" class="btn btn-warning">Güncelle</button>
+        </div>
+
+    </div>
+}
+

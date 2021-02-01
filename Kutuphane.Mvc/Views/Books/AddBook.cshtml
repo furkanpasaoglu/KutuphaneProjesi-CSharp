@@ -1,0 +1,39 @@
+﻿@using System.Collections
+@model Kutuphane.Entities.Concrete.Book
+@{
+    ViewData["Title"] = "Kitap Ekle";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div style="margin-top: 15px">
+        <label>Kitap Adı</label>
+        @Html.TextBoxFor(k => k.Name, new { @class = "form-control", required = "", placeholder = "Kitap Adını Giriniz..." })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Kitap Kategorisi</label>
+        @Html.DropDownListFor(k=>k.Category.Id, (List<SelectListItem>)ViewBag.value, "Kategori Seçiniz",new { @class = "form-control", required = ""})
+    </div>
+    <div style="margin-top: 15px">
+        <label>Kitap Yazarı</label>
+        @Html.DropDownListFor(y=>y.Author.Id, (List<SelectListItem>)ViewBag.value2,"Yazar Seçiniz", new { @class = "form-control", required = "" })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Basım Yılı</label>
+        @Html.TextBoxFor(k => k.YearofPublication, new { @class = "form-control", required = "", placeholder = "Kitap Basım Yılı Giriniz..." })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Yayın Evi</label>
+        @Html.TextBoxFor(k => k.PublishingHouse, new { @class = "form-control", required = "", placeholder = "Kitap Yayın Evi Adını Giriniz..." })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Sayfa Sayısı</label>
+        @Html.TextBoxFor(k => k.Page, new { @class = "form-control", required = "", placeholder = "Kitap Sayfası Sayısını Giriniz..." })
+    </div>
+    <div style="margin-top: 15px">
+        <button class="btn btn-info" id="Btn1">Kitap Ekle</button>
+    </div>
+</form>
+
+
+

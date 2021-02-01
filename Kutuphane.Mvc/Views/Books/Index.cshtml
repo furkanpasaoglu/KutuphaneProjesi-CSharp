@@ -1,0 +1,53 @@
+﻿@model Kutuphane.MVC.Models.ListView.BookListViewModel
+@{
+    ViewData["Title"] = "Kitaplar";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Kitap Sayfası</h1>
+
+@using (Html.BeginForm("Index", "Books", FormMethod.Get))
+{
+    <div style="margin-bottom: 15px; margin-top: 15px;">
+        <b>Aranacak Kitap Adını Girin:</b> 
+        @Html.TextBox("p")
+        <input type="submit"  value="Ara"/>
+    </div>
+}
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>KİTAP ID</th>
+            <th>KİTAP ADI</th>
+            <th>KİTAP YAZARI</th>
+            <th>KATEGORİSİ</th>
+            <th>BASIM YILI</th>
+            <th>YAYINEVİ</th>
+            <th>SAYFA</th>
+            <th>DURUM</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model.Books)
+        {
+        <tr>
+            <td>@b.Id</td>
+            <td>@b.Name</td>
+            <td>@b.Author.Name @b.Author.Surname</td>
+            <td>@b.Category.Name</td>
+            <td>@b.YearofPublication</td>
+            <td>@b.PublishingHouse</td>
+            <td>@b.Page</td>
+            <td>@b.Status</td>
+            <td><a href="/Books/DeleteBook/@b.Id" onclick="return confirm('Silmek İstediğinizden Emin misiniz?');" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Books/UpdateBook/@b.Id" class="btn btn-success">Güncelle</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Books/AddBook" class="btn btn-primary">Yeni Kategori Ekle</a>

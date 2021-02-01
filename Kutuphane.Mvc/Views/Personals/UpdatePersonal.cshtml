@@ -1,0 +1,24 @@
+﻿@model Kutuphane.Entities.Concrete.Personal
+@{
+    ViewData["Title"] = "Personel Güncelle";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdatePersonal", "Personals", FormMethod.Post))
+{
+    <div style="margin-bottom: 15px"></div>
+    <div class="form-group">
+        <div style="margin-bottom: 15px">
+            <label>Personel ID</label>
+            @Html.TextBoxFor(p => p.Id, new { @class = "form-control", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Personel Adı</label>
+            @Html.TextBoxFor(p => p.Name, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Personel Adını Giriniz...", required = "" })
+        </div>
+    </div>
+    <div>
+        <button onclick="return confirm('Güncellemek İstediğinizden Emin misiniz?');" class="btn btn-warning">Güncelle</button>
+    </div>
+}
+
