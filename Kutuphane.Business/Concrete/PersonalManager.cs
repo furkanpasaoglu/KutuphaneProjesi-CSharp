@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
+using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
 {
@@ -16,11 +17,16 @@ namespace Kutuphane.Business.Concrete
             _personelDal = personelDal;
         }
 
-
-        public List<Personal> GetList(Func<Personal, bool> filter = null, params Expression<Func<Personal, object>>[] include)
+        public IPagedList<Personal> GetList(int page, int pageSize, Func<Personal, bool> filter = null, params Expression<Func<Personal, object>>[] include)
         {
-            return _personelDal.GetList(filter, include);
-
+            if (page > 0 && pageSize > 0)
+            {
+                return _personelDal.GetList(filter, include).ToPagedList(page, pageSize);
+            }
+            else
+            {
+                return _personelDal.GetList(filter, include).ToPagedList(page, pageSize);
+            }
         }
 
         public Personal GetById(int id)

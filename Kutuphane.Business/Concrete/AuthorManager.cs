@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
+using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
 {
@@ -16,10 +18,18 @@ namespace Kutuphane.Business.Concrete
             _authorDal = writerDal;
         }
 
-
-        public List<Author> GetList(Func<Author, bool> filter = null, params Expression<Func<Author, object>>[] include)
+        public IPagedList<Author> GetList(int page = 0, int pageSize = 0, Func<Author, bool> filter = null,
+            params Expression<Func<Author, object>>[] include)
         {
-            return _authorDal.GetList(filter, include);
+            if (page > 0 && pageSize > 0)
+            {
+                return _authorDal.GetList(filter, include).ToPagedList(page,pageSize);
+            }
+            else
+            {
+                return _authorDal.GetList(filter, include).ToPagedList(page,pageSize);
+            }
+
         }
 
         public Author GetById(int id)

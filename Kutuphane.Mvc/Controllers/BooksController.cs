@@ -5,6 +5,7 @@ using Kutuphane.Entities.Concrete;
 using Kutuphane.MVC.Models.ListView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace Kutuphane.MVC.Controllers
 {
@@ -17,15 +18,16 @@ namespace Kutuphane.MVC.Controllers
             _bookService = bookService;
         }
 
-        public IActionResult Index(string p)
+        public IActionResult Index(string p, int page = 1)
         {
-            var list = new BookListViewModel
+            if (!String.IsNullOrEmpty(p) && page > 0)
             {
-                Books = !String.IsNullOrEmpty(p) ?
-                    _bookService.GetList(x => x.Name.Contains(p), (k => k.Category), (a => a.Author)) :
-                    _bookService.GetList(null, k => k.Category, a => a.Author)
-            };
-            return View(list);
+                return View(_bookService.GetList(page, 3, x => x.Name.Contains(p), (k => k.Category), (a => a.Author)));
+            }
+            else
+            {
+                return View(_bookService.GetList(page, 3,null, k => k.Category, a => a.Author));
+            }
         }
 
         [HttpGet]

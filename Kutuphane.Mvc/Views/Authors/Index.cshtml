@@ -1,4 +1,7 @@
-﻿@model Kutuphane.MVC.Models.ListView.AuthorListViewModel
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model IPagedList<Kutuphane.Entities.Concrete.Author>
 @{
     ViewData["Title"] = "Yazarlar";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -27,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var wr in Model.Authors)
+        @foreach (var wr in Model)
         {
             <tr>
                 <td>@wr.Id</td>
@@ -40,5 +43,6 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 <a href="/Authors/AddAuthor" class="btn btn-primary">Yeni Yazar Ekle</a>
 

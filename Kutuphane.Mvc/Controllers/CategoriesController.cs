@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.MVC.Models.ListView;
+using X.PagedList;
 
 namespace Kutuphane.MVC.Controllers
 {
@@ -15,14 +16,16 @@ namespace Kutuphane.MVC.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index(string p)
+        public IActionResult Index(string p, int page = 1)
         {
-            var list = new CategoryListViewModel
+            if (!String.IsNullOrEmpty(p) && page > 0)
             {
-                Categories = !String.IsNullOrEmpty(p) ?
-                    _categoryService.GetList(x => x.Name.Contains(p)) : _categoryService.GetList()
-            };
-            return View(list);
+                return View(_categoryService.GetList(page, 3, x => x.Name.Contains(p)));
+            }
+            else
+            {
+                return View(_categoryService.GetList(page, 3));
+            }
         }
 
         [HttpGet]

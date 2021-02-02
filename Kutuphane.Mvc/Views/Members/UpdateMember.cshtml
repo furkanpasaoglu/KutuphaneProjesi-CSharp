@@ -1,8 +1,52 @@
-﻿
+﻿@model Kutuphane.Entities.Concrete.Member
 @{
     ViewData["Title"] = "Üye Güncelle";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h1>UpdateMember</h1>
+@using (Html.BeginForm("UpdateMember", "Members", FormMethod.Post))
+{
+    <div style="margin-bottom: 15px"></div>
+    <div class="form-group">
+        <div style="margin-bottom: 15px">
+            <label>Üye ID</label>
+            @Html.TextBoxFor(p => p.Id, new { @class = "form-control", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Üye Adı</label>
+            @Html.TextBoxFor(p => p.Name, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Üye Adını Giriniz...", required = "" })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Üye Soyadı</label>
+            @Html.TextBoxFor(p => p.Surname, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Üye Soyadını Giriniz...", required = "" })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Kullanıcı Adi</label>
+            @Html.TextBoxFor(p => p.Username, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Kullanıcı Adını Giriniz...", required = "" })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Kullanıcı Şifresi</label>
+            @Html.TextBoxFor(p => p.Password, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Kullanıcı Şifresini Giriniz...", required = "" })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Mail</label>
+            @Html.TextBoxFor(p => p.Mail, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Mail Adresini Giriniz...", required = "" })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Okul</label>
+            @Html.TextBoxFor(p => p.School, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Okulu Giriniz...", })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Telefon</label>
+            @Html.TextBoxFor(p => p.Phone, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Telefon Giriniz...",})
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Fotoğraf Linki</label>
+            @Html.TextBoxFor(p => p.Phone, new { @class = "form-control", placeholder = "Lütfen Güncellenecek Fotoğraf Linki Giriniz..."})
+        </div>
+    </div>
+    <div>
+        <button onclick="return confirm('Güncellemek İstediğinizden Emin misiniz?');" class="btn btn-warning">Güncelle</button>
+    </div>
+}
 

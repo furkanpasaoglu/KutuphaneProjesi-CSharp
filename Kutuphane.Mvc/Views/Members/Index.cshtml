@@ -1,4 +1,6 @@
-﻿@model Kutuphane.MVC.Models.ListView.MemberListViewModel
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Kutuphane.Entities.Concrete.Member>
 @{
     ViewData["Title"] = "Üyeler";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -17,36 +19,38 @@
 
 <table class="table table-bordered">
     <thead>
-    <tr>
-        <th>ÜYE ID</th>
-        <th>ÜYE ADI</th>
-        <th>ÜYE SOYADI</th>
-        <th>MAİL</th>
-        <th>KULLANICI ADI</th>
-        <th>KULLANICI ŞİFRESİ</th>
-        <th>TELEFON</th>
-        <th>OKUL</th>
-        <th>SİL</th>
-        <th>GÜNCELLE</th>
-    </tr>
+        <tr>
+            <th>ÜYE ID</th>
+            <th>ÜYE ADI</th>
+            <th>ÜYE SOYADI</th>
+            <th>MAİL</th>
+            <th>KULLANICI ADI</th>
+            <th>KULLANICI ŞİFRESİ</th>
+            <th>TELEFON</th>
+            <th>OKUL</th>
+            <th>SİL</th>
+            <th>GÜNCELLE</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var m in Model.Members)
-    {
-        <tr>
-            <td>@m.Id</td>
-            <td>@m.Name</td>
-            <td>@m.Surname</td>
-            <td>@m.Mail</td>
-            <td>@m.Username</td>
-            <td>@m.Password</td>
-            <td>@m.Phone</td>
-            <td>@m.School</td>
-            <td><a href="/Members/DeleteMember/@m.Id" onclick="return confirm('Silmek İstediğinizden Emin misiniz?');" class="btn btn-danger">Sil</a></td>
-            <td><a href="/Members/UpdateMember/@m.Id" class="btn btn-success">Güncelle</a></td>
-        </tr>
-    }
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Id</td>
+                <td>@m.Name</td>
+                <td>@m.Surname</td>
+                <td>@m.Mail</td>
+                <td>@m.Username</td>
+                <td>@m.Password</td>
+                <td>@m.Phone</td>
+                <td>@m.School</td>
+                <td><a href="/Members/DeleteMember/@m.Id" onclick="return confirm('Silmek İstediğinizden Emin misiniz?');" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Members/UpdateMember/@m.Id" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
 <a href="/Members/AddMember" class="btn btn-primary">Yeni Personel Ekle</a>
 

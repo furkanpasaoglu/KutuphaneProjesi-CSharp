@@ -1,4 +1,6 @@
-﻿@model Kutuphane.MVC.Models.ListView.PersonalListViewModel
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Kutuphane.Entities.Concrete.Personal>
 @{
     ViewData["Title"] = "Personeller";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -25,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var p in Model.Personals)
+        @foreach (var p in Model)
         {
             <tr>
                 <td>@p.Id</td>
@@ -36,4 +38,5 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 <a href="/Personals/AddPersonal" class="btn btn-primary">Yeni Personel Ekle</a>

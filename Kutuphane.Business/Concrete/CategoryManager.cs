@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
+using X.PagedList;
 
 
 namespace Kutuphane.Business.Concrete
@@ -18,10 +19,16 @@ namespace Kutuphane.Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public List<Category> GetList(Func<Category, bool> filter = null,
-            Expression<Func<Category, object>>[] include = null)
+        public IPagedList<Category> GetList(int page, int pageSize, Func<Category, bool> filter = null, params Expression<Func<Category, object>>[] include)
         {
-            return _categoryDal.GetList(filter, include);
+            if (page > 0 && pageSize > 0)
+            {
+                return _categoryDal.GetList(filter, include).ToPagedList(page, pageSize);
+            }
+            else
+            {
+                return _categoryDal.GetList(filter, include).ToPagedList(page, pageSize);
+            }
         }
 
         public Category GetById(int id)

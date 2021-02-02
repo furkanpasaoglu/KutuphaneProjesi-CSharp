@@ -1,7 +1,6 @@
 ﻿using System;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
-using Kutuphane.MVC.Models.ListView;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kutuphane.MVC.Controllers
@@ -15,14 +14,16 @@ namespace Kutuphane.MVC.Controllers
             _authorService = writerService;
         }
 
-        public IActionResult Index(string p)
+        public IActionResult Index(string p,int page = 1)
         {
-            var query = new AuthorListViewModel
+            if (!String.IsNullOrEmpty(p) && page>0)
             {
-                Authors = !String.IsNullOrEmpty(p) ?
-                    _authorService.GetList(x => x.Name.Contains(p)) : _authorService.GetList()
-            };
-            return View(query);
+                return View(_authorService.GetList(page, 3, x => x.Name.Contains(p)));
+            }
+            else
+            {
+                return View(_authorService.GetList(page, 3));
+            }
         }
 
         [HttpGet]

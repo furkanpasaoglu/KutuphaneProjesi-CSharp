@@ -1,4 +1,6 @@
-﻿@model Kutuphane.MVC.Models.ListView.CategoryListViewModel
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Kutuphane.Entities.Concrete.Category>
 @{
     ViewData["Title"] = "Kategoriler";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -27,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var ctg in Model.Categories)
+        @foreach (var ctg in Model)
         {
             <tr>
                 <td>@ctg.Id</td>
@@ -38,6 +40,7 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
 <a href="/Categories/AddCategory" class="btn btn-primary">Yeni Kategori Ekle</a>
 
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.MVC.Models.ListView;
+using X.PagedList;
 
 namespace Kutuphane.MVC.Controllers
 {
@@ -17,15 +18,16 @@ namespace Kutuphane.MVC.Controllers
         {
             _personalService = personalService;
         }
-
-        public IActionResult Index(string p)
+        public IActionResult Index(string p, int page = 1)
         {
-            var list = new PersonalListViewModel
+            if (!String.IsNullOrEmpty(p) && page > 0)
             {
-                Personals = !String.IsNullOrEmpty(p) ?
-                    _personalService.GetList(x => x.Name.Contains(p)) : _personalService.GetList()
-            };
-            return View(list);
+                return View(_personalService.GetList(page, 3, x => x.Name.Contains(p)));
+            }
+            else
+            {
+                return View(_personalService.GetList(page, 3));
+            }
         }
 
         [HttpGet]
