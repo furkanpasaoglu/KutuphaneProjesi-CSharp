@@ -8,9 +8,9 @@ namespace Kutuphane.Business.Abstract
 {
     public interface IBookService
     {
+        //List<Book> GetList(Func<Book, bool> filter = null, params Expression<Func<Book, object>>[] include);
         IPagedList<Book> GetList(int page, int pageSize, Func<Book, bool> filter = null,
             params Expression<Func<Book, object>>[] include);
-        //List<Book> GetList(Func<Book, bool> filter = null, params Expression<Func<Book, object>>[] include);
         List<Category> GetCategoryList();
         List<Author> GetAuthorList();
         Book GetById(int id);

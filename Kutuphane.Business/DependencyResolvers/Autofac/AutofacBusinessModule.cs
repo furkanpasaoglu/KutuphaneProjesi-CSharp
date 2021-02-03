@@ -20,6 +20,8 @@ namespace Kutuphane.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfMemberDal>().As<IMemberDal>();
             builder.RegisterType<PersonalManager>().As<IPersonalService>();
             builder.RegisterType<EfPersonalDal>().As<IPersonalDal>();
+            builder.RegisterType<StatisticManager>().As<IStatisticService>();
+            builder.RegisterType<EfStatisticDal>().As<IStatisticDal>();
         }
     }
 }

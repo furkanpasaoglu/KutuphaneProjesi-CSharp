@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Kutuphane.Core.Kutuphane.Entities;
 
 namespace Kutuphane.Entities.Concrete
@@ -19,5 +20,8 @@ namespace Kutuphane.Entities.Concrete
         public string Photo { get; set; }
         public string Phone { get; set; }
         public string School { get; set; }
+
+        public virtual ICollection<Statistic> Statistics { get; set; }
+
     }
 }

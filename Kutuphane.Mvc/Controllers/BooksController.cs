@@ -92,6 +92,7 @@ namespace Kutuphane.MVC.Controllers
         [HttpPost]
         public IActionResult UpdateBook(Book book)
         {
+            //Kontrol Edilecek
             book.CategoryId = book.Category.Id;
             book.AuthorId = book.Author.Id;
             _bookService.Update(book);

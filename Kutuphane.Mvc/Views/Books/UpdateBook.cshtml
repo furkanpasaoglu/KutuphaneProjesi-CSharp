@@ -23,7 +23,7 @@
         </div>
         <div style="margin-bottom: 15px">
             <label>Yazar</label>
-            @Html.DropDownListFor(b=>b.Author.Id, (List<SelectListItem>)ViewBag.value2, new { @class = "form-control", required = "" })
+            @Html.DropDownListFor(b => b.Author.Id, (List<SelectListItem>)ViewBag.value2, new { @class = "form-control", required = "" })
         </div>
         <div style="margin-bottom: 15px">
             <label>Basım Yılı</label>
@@ -40,7 +40,7 @@
         <div>
             <button onclick="return confirm('Güncellemek İstediğinizden Emin misiniz?');" class="btn btn-warning">Güncelle</button>
         </div>
-
+        <input type="hidden" name="Status" value="True" />
     </div>
 }
 

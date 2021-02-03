@@ -10,6 +10,7 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
             optionsBuilder.UseSqlServer(@"server=FURKAN-PC\SQLEXPRESS;Database=DbKutuphane; Trusted_Connection=true");
         }
 
+        
         public DbSet<Book> Books { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -18,5 +19,6 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
         public DbSet<Penaltie> Penalties { get; set; }
         public DbSet<Personal> Personals { get; set; }
         public DbSet<Author> Authors { get; set; }
+
     }
 }

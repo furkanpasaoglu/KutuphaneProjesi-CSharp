@@ -1,0 +1,32 @@
+﻿@model Kutuphane.Entities.Concrete.Statistic
+@{
+    ViewData["Title"] = "Ödünç Kitap Ver";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div style="margin-top: 15px">
+        <label>Üye Adı</label>
+        @Html.DropDownListFor(k => k.Member.Id, (List<SelectListItem>)ViewBag.value1, "Üye Seçiniz", new { @class = "form-control", required = "" })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Kitap Adı</label>
+        @Html.DropDownListFor(k => k.Book.Id, (List<SelectListItem>)ViewBag.value2, "Kitap Seçiniz", new { @class = "form-control", required = "" })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Personel Adı</label>
+        @Html.DropDownListFor(k => k.Personal.Id, (List<SelectListItem>)ViewBag.value3, "Personel Seçiniz", new { @class = "form-control", required = "" })
+    </div>
+    <div style="margin-top: 15px">
+        <label>Kitap Alış Tarihi:</label>
+        <input type="text" class="form-control" name="DateofPurchase" value="@DateTime.Now.ToShortDateString()" placeholder="Alış Tarihini Giriniz..."  required=""/>
+    </div>
+    <div style="margin-top: 15px">
+        <label>Kitap İade Tarihi:</label>
+        <input type="text" class="form-control" name="DateofReturn" value="@DateTime.Now.AddDays(7).ToShortDateString()" placeholder="İade Tarihini Giriniz..."required="" />
+    </div>
+    <div style="margin-top: 15px">
+        <button class="btn btn-group" style="background-color: #a330b5; color:white" id="Btn1">Kitabı Ödünç Ver</button>
+    </div>
+</form>
+

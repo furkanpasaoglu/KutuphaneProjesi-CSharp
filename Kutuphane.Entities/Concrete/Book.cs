@@ -1,4 +1,5 @@
-﻿using Kutuphane.Core.Kutuphane.Entities;
+﻿using System.Collections.Generic;
+using Kutuphane.Core.Kutuphane.Entities;
 
 namespace Kutuphane.Entities.Concrete
 {
@@ -15,5 +16,7 @@ namespace Kutuphane.Entities.Concrete
 
         public Category Category { get; set; }
         public Author Author { get; set; }
+        public virtual ICollection<Statistic> Statistics { get; set; }
+
     }
 }

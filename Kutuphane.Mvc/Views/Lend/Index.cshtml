@@ -1,0 +1,49 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Kutuphane.Entities.Concrete.Statistic>
+@{
+    ViewData["Title"] = "Ödünç Kitap Listesi";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h1>Ödünç Kitap Listesi</h1>
+
+@using (Html.BeginForm("Index", "Lend", FormMethod.Get))
+{
+    <div style="margin-bottom: 15px; margin-top: 15px;">
+        <b>Aranacak Kitap Adını Girin:</b>
+        @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>İŞLEM ID</th>
+        <th>KİTAP ADI</th>
+        <th>ÜYE ADI</th>
+        <th>PERSONEL ADI</th>
+        <th>ALIŞ TARİHİ</th>
+        <th>İADE TARİHİ</th>
+        <th>İADE AL</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var b in Model)
+    {
+        <tr>
+            <td>@b.Id</td>
+            <td>@b.Book.Name</td>
+            <td>@b.Member.Name @b.Member.Surname</td>
+            <td>@b.Personal.Name</td>
+            <td>@Convert.ToDateTime(b.DateofPurchase).ToString("dd/MM/yyyy")</td>
+            <td>@Convert.ToDateTime(b.DateofReturn).ToString("dd/MM/yyyy")</td>
+            <td><a href="/Lend/ReturnLend/@b.Id" class="btn btn-default" style="background-color: #64d8ca; color:white">Kitabı İade Et</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+

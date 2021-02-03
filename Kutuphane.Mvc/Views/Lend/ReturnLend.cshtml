@@ -1,0 +1,44 @@
+﻿@model Kutuphane.Entities.Concrete.Statistic
+@{
+    ViewData["Title"] = "Ödünç Kitabı İade Et";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@using (Html.BeginForm("ReturnLend", "Lend", FormMethod.Post))
+{
+    <div style="margin-bottom: 15px"></div>
+    <div class="form-group">
+        <div style="margin-bottom: 15px">
+            <label>İşlem ID</label>
+            @Html.TextBoxFor(p => p.Id, new { @class = "form-control", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Kitap Adı</label>
+            @Html.TextBoxFor(p => p.Book.Name, new { @class = "form-control", placeholder = "Lütfen Kitap Adını Giriniz...", required = "" , @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Üye Adı</label>
+            @Html.TextBoxFor(p => p.Member.Name, new { @class = "form-control", placeholder = "Lütfen Üye Adını Giriniz...", required = "", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Personel Adı</label>
+            @Html.TextBoxFor(p => p.Personal.Name, new { @class = "form-control", placeholder = "Lütfen Personel Adını Giriniz...", required = "", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Alış Tarihi</label>
+            @Html.TextBoxFor(p => p.DateofPurchase, new { @class = "form-control", required = "", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>İade Tarihi</label>
+            @Html.TextBoxFor(p => p.DateofReturn, new { @class = "form-control", required = "", @readonly = false })
+        </div>
+        <div style="margin-bottom: 15px">
+            <label>Üyenin Getirdiği Tarih</label>
+            <input type="text" name="MemberDate" value="@DateTime.Now.ToShortDateString()" class="form-control",required =""/>
+        </div>
+    </div>
+    <div>
+        <button onclick="return confirm('Ödün Kitap Alınacak Emin misiniz?');" class="btn btn-group" style="background-color: #64d8ca;color:white">Ödünç Kitabı Geri Al</button>
+    </div>
+}
+
