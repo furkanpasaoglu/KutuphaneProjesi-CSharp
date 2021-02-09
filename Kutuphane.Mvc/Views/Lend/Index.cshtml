@@ -1,6 +1,6 @@
 ﻿@using X.PagedList
 @using X.PagedList.Mvc.Core
-@model IPagedList<Kutuphane.Entities.Concrete.Statistic>
+@model IPagedList<Kutuphane.Entities.DTOs.StatisticDetailDto>
 @{
     ViewData["Title"] = "Ödünç Kitap Listesi";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -11,7 +11,7 @@
 @using (Html.BeginForm("Index", "Lend", FormMethod.Get))
 {
     <div style="margin-bottom: 15px; margin-top: 15px;">
-        <b>Aranacak Kitap Adını Girin:</b>
+        <b>Aranacak Üye Adını Girin:</b>
         @Html.TextBox("p")
         <input type="submit" value="Ara" />
     </div>
@@ -34,9 +34,9 @@
     {
         <tr>
             <td>@b.Id</td>
-            <td>@b.Book.Name</td>
-            <td>@b.Member.Name @b.Member.Surname</td>
-            <td>@b.Personal.Name</td>
+            <td>@b.BookName</td>
+            <td>@b.MemberName @b.MemberSurname</td>
+            <td>@b.PersonalName</td>
             <td>@Convert.ToDateTime(b.DateofPurchase).ToString("dd/MM/yyyy")</td>
             <td>@Convert.ToDateTime(b.DateofReturn).ToString("dd/MM/yyyy")</td>
             <td><a href="/Lend/ReturnLend/@b.Id" class="btn btn-default" style="background-color: #64d8ca; color:white">Kitabı İade Et</a></td>

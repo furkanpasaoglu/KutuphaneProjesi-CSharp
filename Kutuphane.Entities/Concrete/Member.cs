@@ -20,8 +20,5 @@ namespace Kutuphane.Entities.Concrete
         public string Photo { get; set; }
         public string Phone { get; set; }
         public string School { get; set; }
-
-        public virtual ICollection<Statistic> Statistics { get; set; }
-
     }
 }

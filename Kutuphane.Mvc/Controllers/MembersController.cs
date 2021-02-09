@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
-using Kutuphane.MVC.Models.ListView;
 using X.PagedList;
-
 
 namespace Kutuphane.MVC.Controllers
 {
@@ -21,14 +15,7 @@ namespace Kutuphane.MVC.Controllers
         }
         public IActionResult Index(string p, int page = 1)
         {
-            if (!String.IsNullOrEmpty(p) && page > 0)
-            {
-                return View(_memberService.GetList(page, 3, x => x.Name.Contains(p)));
-            }
-            else
-            {
-                return View(_memberService.GetList(page, 3));
-            }
+            return View(_memberService.GetList(p).ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -46,7 +33,7 @@ namespace Kutuphane.MVC.Controllers
             }
             _memberService.Add(member);
             TempData["Mesaj"] = member.Name + " Üye Eklendi!";
-            return View();
+            return RedirectToAction("Index");
         }
 
         public IActionResult DeleteMember(int id)
@@ -54,7 +41,7 @@ namespace Kutuphane.MVC.Controllers
             var query = _memberService.GetById(id);
             _memberService.Delete(query);
             TempData["Mesaj"] = query.Name + " Üye Silindi!";
-            return RedirectToAction("Index", "Members");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -69,7 +56,7 @@ namespace Kutuphane.MVC.Controllers
         {
             _memberService.Update(member);
             TempData["Mesaj"] = member.Name + " Üye Bilgileri Güncellendi!";
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

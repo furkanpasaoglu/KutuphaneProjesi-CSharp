@@ -13,28 +13,26 @@ namespace Kutuphane.Business.Concrete
     {
         private IAuthorDal _authorDal;
 
-        public AuthorManager(IAuthorDal writerDal)
+        public AuthorManager(IAuthorDal authorDal)
         {
-            _authorDal = writerDal;
+            _authorDal = authorDal;
         }
 
-        public IPagedList<Author> GetList(int page = 0, int pageSize = 0, Func<Author, bool> filter = null,
-            params Expression<Func<Author, object>>[] include)
+        public List<Author> GetList(string p = "")
         {
-            if (page > 0 && pageSize > 0)
+            if (!String.IsNullOrEmpty(p))
             {
-                return _authorDal.GetList(filter, include).ToPagedList(page,pageSize);
+                return _authorDal.GetList().Where(x => x.Name.Contains(p)).ToList();
             }
             else
             {
-                return _authorDal.GetList(filter, include).ToPagedList(page,pageSize);
+                return _authorDal.GetList().ToList();
             }
-
         }
 
         public Author GetById(int id)
         {
-            return id > 0 ? _authorDal.GetById(p => p.Id == id):throw new Exception("Hata");
+            return id > 0 ? _authorDal.GetById(p => p.Id == id) : throw new Exception("Hata");
         }
 
         public void Add(Author author)

@@ -1,48 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
+using Kutuphane.Entities.DTOs;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kutuphane.Business.Concrete
 {
     public class BookManager : IBookService
     {
         private IBookDal _bookDal;
-        private ICategoryDal _categoryDal;
-        private IAuthorDal _authorDal;
 
-        public BookManager(IBookDal bookDal, ICategoryDal categoryDal, IAuthorDal authorService)
+        public BookManager(IBookDal bookDal)
         {
             _bookDal = bookDal;
-            _categoryDal = categoryDal;
-            _authorDal = authorService;
         }
 
-
-        public IPagedList<Book> GetList(int page, int pageSize, Func<Book, bool> filter = null, params Expression<Func<Book, object>>[] include)
+        public List<BookDetailDto> GetList(string p)
         {
-            if (page > 0 && pageSize > 0)
+            if (!String.IsNullOrEmpty(p))
             {
-                return _bookDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _bookDal.GetBookDetails().Where(x => x.Name.Contains(p)).ToList();
             }
             else
             {
-                return _bookDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _bookDal.GetBookDetails().ToList();
             }
         }
 
-        public List<Category> GetCategoryList()
+        public List<SelectListItem> GetCategory()
         {
-            return _categoryDal.GetList();
+            return _bookDal.GetCategory();
         }
 
-        public List<Author> GetAuthorList()
+        public List<SelectListItem> GetAuthor()
         {
-            return _authorDal.GetList();
+            return _bookDal.GetAuthor();
         }
 
         public Book GetById(int id)
@@ -52,7 +47,7 @@ namespace Kutuphane.Business.Concrete
 
         public void Add(Book book)
         {
-            if (book!=null)
+            if (book != null)
             {
                 _bookDal.Add(book);
             }

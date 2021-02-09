@@ -1,6 +1,7 @@
 ﻿@using X.PagedList
 @using X.PagedList.Mvc.Core
-@model IPagedList<Kutuphane.Entities.Concrete.Book>
+
+@model IPagedList<Kutuphane.Entities.DTOs.BookDetailDto>
 @{
     ViewData["Title"] = "Kitaplar";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -38,8 +39,8 @@
             <tr>
                 <td>@b.Id</td>
                 <td>@b.Name</td>
-                <td>@b.Author.Name @b.Author.Surname</td>
-                <td>@b.Category.Name</td>
+                <td>@b.AuthorName @b.AuthorSurname</td>
+                <td>@b.CategoryName</td>
                 <td>@b.YearofPublication</td>
                 <td>@b.PublishingHouse</td>
                 <td>@b.Page</td>

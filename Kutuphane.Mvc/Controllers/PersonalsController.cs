@@ -20,14 +20,7 @@ namespace Kutuphane.MVC.Controllers
         }
         public IActionResult Index(string p, int page = 1)
         {
-            if (!String.IsNullOrEmpty(p) && page > 0)
-            {
-                return View(_personalService.GetList(page, 3, x => x.Name.Contains(p)));
-            }
-            else
-            {
-                return View(_personalService.GetList(page, 3));
-            }
+            return View(_personalService.GetList(p).ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -45,7 +38,7 @@ namespace Kutuphane.MVC.Controllers
             }
             _personalService.Add(personal);
             TempData["Mesaj"] = personal.Name + " Personel Eklendi!";
-            return View();
+            return RedirectToAction("Index");
         }
 
         public IActionResult DeletePersonal(int id)
@@ -53,7 +46,7 @@ namespace Kutuphane.MVC.Controllers
             var query = _personalService.GetById(id);
             _personalService.Delete(query);
             TempData["Mesaj"] = query.Name + " Personel Silindi!";
-            return RedirectToAction("Index", "Personals");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -68,7 +61,8 @@ namespace Kutuphane.MVC.Controllers
         {
             _personalService.Update(personal);
             TempData["Mesaj"] = personal.Name + " Personel Bilgileri Güncellendi!";
-            return View();
+            return RedirectToAction("Index");
+
         }
     }
 }

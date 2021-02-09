@@ -8,8 +8,7 @@ namespace Kutuphane.Business.Abstract
 {
     public interface IPersonalService
     {
-        IPagedList<Personal> GetList(int page, int pageSize, Func<Personal, bool> filter = null,
-            params Expression<Func<Personal, object>>[] include);
+        List<Personal> GetList(string p = "");
         Personal GetById(int id);
         void Add(Personal personal);
         void Update(Personal personal);

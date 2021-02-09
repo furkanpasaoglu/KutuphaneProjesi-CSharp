@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
-using Kutuphane.Entities.Concrete;
+using Kutuphane.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace Kutuphane.MVC.Models.ListView
 {
     public class BookListViewModel
     {
-        public List<Book> Books { get; set; }
-        public List<SelectListItem> CategoryListItem { get; set; }
-        public List<SelectListItem> AuthorListItem { get; set; }
-
+        public IPagedList<BookDetailDto> BookDetailDto { get; set; }
     }
 }

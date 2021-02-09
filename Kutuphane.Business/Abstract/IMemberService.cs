@@ -8,8 +8,7 @@ namespace Kutuphane.Business.Abstract
 {
     public interface IMemberService
     {
-        IPagedList<Member> GetList(int page, int pageSize, Func<Member, bool> filter = null,
-            params Expression<Func<Member, object>>[] include);
+        List<Member> GetList(string p = "");
         Member GetById(int id);
         void Add(Member member);
         void Update(Member member);

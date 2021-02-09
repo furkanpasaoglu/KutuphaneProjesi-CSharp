@@ -9,8 +9,7 @@ namespace Kutuphane.Business.Abstract
 {
     public interface IAuthorService
     {
-        IPagedList<Author> GetList(int page, int pageSize, Func<Author, bool> filter = null,
-            params Expression<Func<Author, object>>[] include);
+        List<Author> GetList(string p = "");
         Author GetById(int id);
         void Add(Author author);
         void Update(Author author);

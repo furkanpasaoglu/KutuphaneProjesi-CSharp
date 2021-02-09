@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kutuphane.DataAccess\Kutuphane.DataAccess.csproj" />
-    <ProjectReference Include="..\Kutuphane.Entities\Kutuphane.Entities.csproj" />
+    <PackageReference Include="Autofac" Version="6.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.0" />
+    <PackageReference Include="X.PagedList" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.1.0" />
-    <PackageReference Include="X.PagedList" Version="8.0.7" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
+    <ProjectReference Include="..\Kutuphane.DataAccess\Kutuphane.DataAccess.csproj" />
+    <ProjectReference Include="..\Kutuphane.Entities\Kutuphane.Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
+using Kutuphane.Entities.DTOs;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kutuphane.Business.Abstract
 {
     public interface IBookService
     {
-        //List<Book> GetList(Func<Book, bool> filter = null, params Expression<Func<Book, object>>[] include);
-        IPagedList<Book> GetList(int page, int pageSize, Func<Book, bool> filter = null,
-            params Expression<Func<Book, object>>[] include);
-        List<Category> GetCategoryList();
-        List<Author> GetAuthorList();
+        List<BookDetailDto> GetList(string p = "");
+        List<SelectListItem> GetCategory();
+        List<SelectListItem> GetAuthor();
         Book GetById(int id);
         void Add(Book book);
         void Update(Book book);

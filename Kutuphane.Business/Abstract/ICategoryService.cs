@@ -8,8 +8,7 @@ namespace Kutuphane.Business.Abstract
 {
     public interface ICategoryService
     {
-        IPagedList<Category> GetList(int page, int pageSize, Func<Category, bool> filter = null,
-            params Expression<Func<Category, object>>[] include);
+        List<Category> GetList(string p = "");
         Category GetById(int id);
         void Add(Category category);
         void Update(Category category);

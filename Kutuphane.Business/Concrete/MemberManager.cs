@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
@@ -15,15 +16,16 @@ namespace Kutuphane.Business.Concrete
         {
             _memberDal = memberDal;
         }
-        public IPagedList<Member> GetList(int page, int pageSize, Func<Member, bool> filter = null, params Expression<Func<Member, object>>[] include)
+
+        public List<Member> GetList(string p = "")
         {
-            if (page > 0 && pageSize > 0)
+            if (!String.IsNullOrEmpty(p))
             {
-                return _memberDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _memberDal.GetList().Where(x => x.Name.Contains(p)).ToList();
             }
             else
             {
-                return _memberDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _memberDal.GetList().ToList();
             }
         }
 

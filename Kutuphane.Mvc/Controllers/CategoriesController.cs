@@ -18,14 +18,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult Index(string p, int page = 1)
         {
-            if (!String.IsNullOrEmpty(p) && page > 0)
-            {
-                return View(_categoryService.GetList(page, 3, x => x.Name.Contains(p)));
-            }
-            else
-            {
-                return View(_categoryService.GetList(page, 3));
-            }
+            return View(_categoryService.GetList(p).ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -39,7 +32,7 @@ namespace Kutuphane.MVC.Controllers
         {
             _categoryService.Add(category);
             TempData["Mesaj"] = category.Name+" Kategorisi Eklendi!";
-            return View();
+            return RedirectToAction("Index");
         }
 
         public IActionResult DeleteCategory(int id)
@@ -47,7 +40,7 @@ namespace Kutuphane.MVC.Controllers
             var query = _categoryService.GetById(id);
             _categoryService.Delete(query);
             TempData["Mesaj"] = query.Name + " Kategorisi Silindi!";
-            return RedirectToAction("Index", "Categories");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -62,7 +55,8 @@ namespace Kutuphane.MVC.Controllers
         {
             _categoryService.Update(category);
             TempData["Mesaj"] = category.Name + " Kategori Bilgileri Güncellendi!";
-            return View();
+            return RedirectToAction("Index");
+
         }
     }
 }

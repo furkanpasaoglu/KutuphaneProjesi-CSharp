@@ -9,8 +9,5 @@ namespace Kutuphane.Entities.Concrete
         public int Id { get; set; }
         [Required(ErrorMessage ="Personel Adı Boş Geçilemez")]
         public string Name { get; set; }
-
-        public virtual ICollection<Statistic> Statistics { get; set; }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Kutuphane.Entities.Concrete.Statistic
+﻿@model Kutuphane.Entities.DTOs.StatisticDetailDto
 @{
     ViewData["Title"] = "Ödünç Kitabı İade Et";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -14,15 +14,18 @@
         </div>
         <div style="margin-bottom: 15px">
             <label>Kitap Adı</label>
-            @Html.TextBoxFor(p => p.Book.Name, new { @class = "form-control", placeholder = "Lütfen Kitap Adını Giriniz...", required = "" , @readonly = false })
+            @Html.TextBoxFor(p=>p.BookId,new {@type = "hidden"})
+            @Html.TextBoxFor(p => p.BookName, new { @class = "form-control", required = "", @readonly = false })
         </div>
         <div style="margin-bottom: 15px">
             <label>Üye Adı</label>
-            @Html.TextBoxFor(p => p.Member.Name, new { @class = "form-control", placeholder = "Lütfen Üye Adını Giriniz...", required = "", @readonly = false })
+            @Html.TextBoxFor(p => p.MemberId, new { @type = "hidden" })
+            @Html.TextBoxFor(p => p.MemberName, new { @class = "form-control", required = "", @readonly = false })
         </div>
         <div style="margin-bottom: 15px">
             <label>Personel Adı</label>
-            @Html.TextBoxFor(p => p.Personal.Name, new { @class = "form-control", placeholder = "Lütfen Personel Adını Giriniz...", required = "", @readonly = false })
+            @Html.TextBoxFor(p => p.PersonalId, new { @type = "hidden" })
+            @Html.TextBoxFor(p => p.PersonalName, new { @class = "form-control", required = "", @readonly = false })
         </div>
         <div style="margin-bottom: 15px">
             <label>Alış Tarihi</label>
@@ -34,7 +37,7 @@
         </div>
         <div style="margin-bottom: 15px">
             <label>Üyenin Getirdiği Tarih</label>
-            <input type="text" name="MemberDate" value="@DateTime.Now.ToShortDateString()" class="form-control",required =""/>
+            <input type="text" name="MemberDate" value="@DateTime.Now.ToShortDateString()" class="form-control", readonly="" ,required=""  />
         </div>
     </div>
     <div>

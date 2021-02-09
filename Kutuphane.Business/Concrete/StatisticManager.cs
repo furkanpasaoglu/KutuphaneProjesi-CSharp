@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
+using Kutuphane.Entities.DTOs;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
@@ -11,65 +14,47 @@ namespace Kutuphane.Business.Concrete
     public class StatisticManager : IStatisticService
     {
         private IStatisticDal _statisticDal;
-        private IMemberDal _memberDal;
-        private IBookDal _bookDal;
-        private IPersonalDal _personalDal;
 
-        public StatisticManager(IStatisticDal statisticDal, IMemberDal memberDal, IBookDal bookDal, IPersonalDal personalDal)
+        public StatisticManager(IStatisticDal statisticDal)
         {
             _statisticDal = statisticDal;
-            _memberDal = memberDal;
-            _bookDal = bookDal;
-            _personalDal = personalDal;
         }
 
-        public IPagedList<Statistic> GetList(int page, int pageSize, Func<Statistic, bool> filter = null, params Expression<Func<Statistic, object>>[] include)
+        public List<StatisticDetailDto> GetList(string p = "")
         {
-            if (page > 0 && pageSize > 0)
+            if (!String.IsNullOrEmpty(p))
             {
-                return _statisticDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p)).ToList();
             }
             else
             {
-                return _statisticDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _statisticDal.GetStatisticDetails().ToList();
             }
         }
-
-        public List<Book> GetBookList()
+        public StatisticDetailDto GetStatisticDetails(int bookId, int personalId, int memberId)
         {
-            return _bookDal.GetList();
+            return bookId>0 && personalId>0 && memberId>0 ? _statisticDal.GetStatisticDetails(bookId, personalId, memberId) : throw new Exception("Hata");
         }
 
-        public List<Member> GetMemberList()
+        public List<SelectListItem> GetMember()
         {
-            return _memberDal.GetList();
+           return _statisticDal.GetMember();
         }
 
-        public List<Personal> GetPersonalList()
+        public List<SelectListItem> GetPersonal()
         {
-            return _personalDal.GetList();
+            return _statisticDal.GetPersonal();
+        }
+
+        public List<SelectListItem> GetBook()
+        {
+            return _statisticDal.GetBook();
         }
 
         public Statistic GetById(int id)
         {
             return id > 0 ? _statisticDal.GetById(p => p.Id == id) : throw new Exception("Hata");
         }
-
-        public Member GetMemberById(int id)
-        {
-            return id > 0 ? _memberDal.GetById(p => p.Id == id) : throw new Exception("Hata");
-        }
-
-        public Book GetBookById(int id)
-        {
-            return id > 0 ? _bookDal.GetById(p => p.Id == id) : throw new Exception("Hata");
-        }
-
-        public Personal GetPersonalById(int id)
-        {
-            return id > 0 ? _personalDal.GetById(p => p.Id == id) : throw new Exception("Hata");
-        }
-
 
         public void Add(Statistic lend)
         {

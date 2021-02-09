@@ -1,4 +1,4 @@
-﻿@model Kutuphane.Entities.Concrete.Statistic
+﻿@model Kutuphane.Entities.DTOs.StatisticDetailDto
 @{
     ViewData["Title"] = "Ödünç Kitap Ver";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -7,15 +7,15 @@
 <form class="form-group" method="post">
     <div style="margin-top: 15px">
         <label>Üye Adı</label>
-        @Html.DropDownListFor(k => k.Member.Id, (List<SelectListItem>)ViewBag.value1, "Üye Seçiniz", new { @class = "form-control", required = "" })
+        @Html.DropDownListFor(k => k.MemberId, (List<SelectListItem>)ViewBag.value1, "Üye Seçiniz", new { @class = "form-control", required = "" })
     </div>
     <div style="margin-top: 15px">
         <label>Kitap Adı</label>
-        @Html.DropDownListFor(k => k.Book.Id, (List<SelectListItem>)ViewBag.value2, "Kitap Seçiniz", new { @class = "form-control", required = "" })
+        @Html.DropDownListFor(k => k.BookId, (List<SelectListItem>)ViewBag.value2, "Kitap Seçiniz", new { @class = "form-control", required = "" })
     </div>
     <div style="margin-top: 15px">
         <label>Personel Adı</label>
-        @Html.DropDownListFor(k => k.Personal.Id, (List<SelectListItem>)ViewBag.value3, "Personel Seçiniz", new { @class = "form-control", required = "" })
+        @Html.DropDownListFor(k => k.PersonalId, (List<SelectListItem>)ViewBag.value3, "Personel Seçiniz", new { @class = "form-control", required = "" })
     </div>
     <div style="margin-top: 15px">
         <label>Kitap Alış Tarihi:</label>

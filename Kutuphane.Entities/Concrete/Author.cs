@@ -8,8 +8,6 @@ namespace Kutuphane.Entities.Concrete
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Details { get; set; }
-        public virtual ICollection<Book> Books { get; set; }
-
+        public string Detail { get; set; }
     }
 }

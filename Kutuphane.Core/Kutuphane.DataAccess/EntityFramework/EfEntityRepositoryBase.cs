@@ -11,8 +11,35 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
-        List<TEntity> _query = null;
+        List<TEntity> _query = new List<TEntity>();
+        
+        public List<TEntity> GetList(params Expression<Func<TEntity, object>>[] include)
+        {
+            using (TContext context = new TContext())
+            {
+                foreach (var x in include)
+                {
+                    _query = context.Set<TEntity>().Include(x).ToList();
+                }
+                return _query;
+            }
+        }
 
+        public List<TEntity> GetList()
+        {
+            using (TContext context = new TContext())
+            {
+                return context.Set<TEntity>().ToList();
+            }
+        }
+
+        public List<TEntity> GetList(Func<TEntity, bool> filter)
+        {
+            using (TContext context = new TContext())
+            {
+                return context.Set<TEntity>().Where(filter).ToList();
+            }
+        }
         public List<TEntity> GetList(Func<TEntity, bool> filter = null, params Expression<Func<TEntity, object>>[] include)
         {
             using (TContext context = new TContext())
@@ -36,11 +63,10 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
                         return _query.Where(filter).ToList();
                     }
                 }
-                
+
                 return filter != null ? context.Set<TEntity>().Where(filter).ToList() : context.Set<TEntity>().ToList();
             }
         }
-
         public TEntity GetById(Expression<Func<TEntity, bool>> filter)
         {
             using (TContext context = new TContext())
@@ -58,7 +84,6 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
                 context.SaveChanges();
             }
         }
-
         public void Update(TEntity entity)
         {
             using (TContext context = new TContext())
@@ -68,7 +93,6 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
                 context.SaveChanges();
             }
         }
-
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())

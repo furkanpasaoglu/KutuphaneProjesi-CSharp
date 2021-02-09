@@ -1,7 +1,7 @@
-﻿using System;
-using Kutuphane.Business.Abstract;
+﻿using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace Kutuphane.MVC.Controllers
 {
@@ -16,14 +16,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult Index(string p,int page = 1)
         {
-            if (!String.IsNullOrEmpty(p) && page>0)
-            {
-                return View(_authorService.GetList(page, 3, x => x.Name.Contains(p)));
-            }
-            else
-            {
-                return View(_authorService.GetList(page, 3));
-            }
+            return View(_authorService.GetList(p).ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -33,11 +26,11 @@ namespace Kutuphane.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAuthor(Author writer)
+        public IActionResult AddAuthor(Author author)
         {
-            _authorService.Add(writer);
-            TempData["Mesaj"] = writer.Name + " Adlı Yazar Eklendi!";
-            return View();
+            _authorService.Add(author);
+            TempData["Mesaj"] = author.Name + " Adlı Yazar Eklendi!";
+            return RedirectToAction("Index");
         }
 
         public IActionResult DeleteAuthor(int id)
@@ -56,11 +49,11 @@ namespace Kutuphane.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAuthor(Author writer)
+        public IActionResult UpdateAuthor(Author author)
         {
-            _authorService.Update(writer);
-            TempData["Mesaj"] = writer.Name + " Adlı Yazar Bilgileri Güncellendi!";
-            return View();
+            _authorService.Update(author);
+            TempData["Mesaj"] = author.Name + " Adlı Yazar Bilgileri Güncellendi!";
+            return RedirectToAction("Index");
         }
     }
 }

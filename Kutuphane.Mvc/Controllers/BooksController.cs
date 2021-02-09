@@ -1,12 +1,7 @@
-﻿using System;
-using System.Linq;
-using Kutuphane.Business.Abstract;
+﻿using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
-using Kutuphane.MVC.Models.ListView;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
-
 namespace Kutuphane.MVC.Controllers
 {
     public class BooksController : Controller
@@ -17,37 +12,16 @@ namespace Kutuphane.MVC.Controllers
         {
             _bookService = bookService;
         }
-
         public IActionResult Index(string p, int page = 1)
         {
-            if (!String.IsNullOrEmpty(p) && page > 0)
-            {
-                return View(_bookService.GetList(page, 3, x => x.Name.Contains(p), (k => k.Category), (a => a.Author)));
-            }
-            else
-            {
-                return View(_bookService.GetList(page, 3,null, k => k.Category, a => a.Author));
-            }
+            return View(_bookService.GetList(p).ToPagedList(page, 3));
         }
 
         [HttpGet]
         public IActionResult AddBook()
         {
-            var query2 = (from u in _bookService.GetCategoryList()
-                select new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }).ToList();
-            var query3 = (from u in _bookService.GetAuthorList()
-                select new SelectListItem
-                {
-                    Text = u.Name + ' ' + u.Surname,
-                    Value = u.Id.ToString()
-                }).ToList();
-
-            ViewBag.value = query2;
-            ViewBag.value2 = query3;
+            ViewBag.value = _bookService.GetCategory();
+            ViewBag.value2 = _bookService.GetAuthor();
             return View();
         }
 
@@ -55,8 +29,8 @@ namespace Kutuphane.MVC.Controllers
         public IActionResult AddBook(Book book)
         {
             _bookService.Add(book);
-            TempData["Mesaj"] = book.Name + " Kategorisi Eklendi!";
-            return RedirectToAction("Index");
+            TempData["Mesaj"] = book.Name + " Kitap Eklendi!";
+            return RedirectToAction("Index", "Books");
             //View Yapınca hata patlatıyor bakılacak
         }
 
@@ -64,37 +38,25 @@ namespace Kutuphane.MVC.Controllers
         {
             var query = _bookService.GetById(id);
             _bookService.Delete(query);
-            TempData["Mesaj"] = query.Name + " Kategorisi Silindi!";
+            TempData["Mesaj"] = query.Name + " Kitap Silindi!";
             return RedirectToAction("Index", "Books");
         }
 
         [HttpGet]
         public IActionResult UpdateBook(int id)
         {
+            ViewBag.value = _bookService.GetCategory();
+            ViewBag.value2 = _bookService.GetAuthor();
             var query = _bookService.GetById(id);
-            var query2 = (from u in _bookService.GetCategoryList()
-                select new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }).ToList();
-            var query3 = (from u in _bookService.GetAuthorList()
-                select new SelectListItem
-                {
-                    Text = u.Name + ' ' + u.Surname,
-                    Value = u.Id.ToString()
-                }).ToList();
-            ViewBag.value = query2;
-            ViewBag.value2 = query3;
-            return View("UpdateBook", query);
+            return View("UpdateBook",query);
         }
 
         [HttpPost]
         public IActionResult UpdateBook(Book book)
         {
             //Kontrol Edilecek
-            book.CategoryId = book.Category.Id;
-            book.AuthorId = book.Author.Id;
+            //book.CategoryId = book.Category.Id;
+            //book.AuthorId = book.Author.Id;
             _bookService.Update(book);
             TempData["Mesaj"] = book.Name + " Kitap Bilgileri Güncellendi!";
             return RedirectToAction("Index", "Books");

@@ -36,7 +36,7 @@
                 <td>@wr.Id</td>
                 <td>@wr.Name</td>
                 <td>@wr.Surname</td>
-                <td>@wr.Details</td>
+                <td>@wr.Detail</td>
                 <td>@Html.ActionLink("Sil", "DeleteAuthor", "Authors", new { id = wr.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstediğinizden Emin misiniz?');" })</td>
                 <td><a href="/Authors/UpdateAuthor/@wr.Id" class="btn btn-success">Güncelle</a></td>
             </tr>

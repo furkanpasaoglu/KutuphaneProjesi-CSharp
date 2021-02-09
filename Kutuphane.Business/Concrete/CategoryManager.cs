@@ -19,15 +19,16 @@ namespace Kutuphane.Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public IPagedList<Category> GetList(int page, int pageSize, Func<Category, bool> filter = null, params Expression<Func<Category, object>>[] include)
+
+        public List<Category> GetList(string p = "")
         {
-            if (page > 0 && pageSize > 0)
+            if (!String.IsNullOrEmpty(p))
             {
-                return _categoryDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _categoryDal.GetList().Where(x => x.Name.Contains(p)).ToList();
             }
             else
             {
-                return _categoryDal.GetList(filter, include).ToPagedList(page, pageSize);
+                return _categoryDal.GetList().ToList();
             }
         }
 
@@ -35,11 +36,6 @@ namespace Kutuphane.Business.Concrete
         {
             return id > 0 ? _categoryDal.GetById(p => p.Id == id) : throw new Exception("Hata");
         }
-
-        //public List<Category> GetListByCategory(int id)
-        //{
-        //    return id > 0 ? _categoryDal.GetList(p => p.Id == id).ToList() : throw new Exception("Hata");
-        //}
 
         public void Add(Category category)
         {
