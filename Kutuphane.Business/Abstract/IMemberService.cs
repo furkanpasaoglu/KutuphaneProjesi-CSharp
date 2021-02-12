@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
 
 namespace Kutuphane.Business.Abstract
 {
     public interface IMemberService
     {
-        List<Member> GetList(string p = "");
-        Member GetById(int id);
-        void Add(Member member);
-        void Update(Member member);
-        void Delete(Member member);
+        IDataResult<List<Member>> GetList(string p = "");
+        IDataResult<Member> GetById(int id);
+        IResult Add(Member member);
+        IResult Update(Member member);
+        IResult Delete(Member member);
     }
 }

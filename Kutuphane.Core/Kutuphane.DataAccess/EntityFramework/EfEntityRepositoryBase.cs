@@ -11,8 +11,15 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
+        public List<TEntity> GetList()
+        {
+            using (TContext context = new TContext())
+            {
+                return context.Set<TEntity>().ToList();
+            }
+        }
+        /*
         List<TEntity> _query = new List<TEntity>();
-        
         public List<TEntity> GetList(params Expression<Func<TEntity, object>>[] include)
         {
             using (TContext context = new TContext())
@@ -25,13 +32,6 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
             }
         }
 
-        public List<TEntity> GetList()
-        {
-            using (TContext context = new TContext())
-            {
-                return context.Set<TEntity>().ToList();
-            }
-        }
 
         public List<TEntity> GetList(Func<TEntity, bool> filter)
         {
@@ -67,6 +67,7 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
                 return filter != null ? context.Set<TEntity>().Where(filter).ToList() : context.Set<TEntity>().ToList();
             }
         }
+        */
         public TEntity GetById(Expression<Func<TEntity, bool>> filter)
         {
             using (TContext context = new TContext())

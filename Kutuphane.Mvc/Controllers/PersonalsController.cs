@@ -12,7 +12,7 @@ namespace Kutuphane.MVC.Controllers
 {
     public class PersonalsController : Controller
     {
-        private IPersonalService _personalService;
+        private readonly IPersonalService _personalService;
 
         public PersonalsController(IPersonalService personalService)
         {
@@ -20,7 +20,7 @@ namespace Kutuphane.MVC.Controllers
         }
         public IActionResult Index(string p, int page = 1)
         {
-            return View(_personalService.GetList(p).ToPagedList(page, 3));
+            return View(_personalService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult DeletePersonal(int id)
         {
-            var query = _personalService.GetById(id);
+            var query = _personalService.GetById(id).Data;
             _personalService.Delete(query);
             TempData["Mesaj"] = query.Name + " Personel Silindi!";
             return RedirectToAction("Index");
@@ -52,7 +52,7 @@ namespace Kutuphane.MVC.Controllers
         [HttpGet]
         public IActionResult UpdatePersonal(int id)
         {
-            var query = _personalService.GetById(id);
+            var query = _personalService.GetById(id).Data;
             return View("UpdatePersonal", query);
         }
 

@@ -7,7 +7,7 @@ namespace Kutuphane.MVC.Controllers
 {
     public class MembersController : Controller
     {
-        private IMemberService _memberService;
+        private readonly IMemberService _memberService;
 
         public MembersController(IMemberService memberService)
         {
@@ -15,7 +15,7 @@ namespace Kutuphane.MVC.Controllers
         }
         public IActionResult Index(string p, int page = 1)
         {
-            return View(_memberService.GetList(p).ToPagedList(page, 3));
+            return View(_memberService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -38,7 +38,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult DeleteMember(int id)
         {
-            var query = _memberService.GetById(id);
+            var query = _memberService.GetById(id).Data;
             _memberService.Delete(query);
             TempData["Mesaj"] = query.Name + " Üye Silindi!";
             return RedirectToAction("Index");
@@ -47,7 +47,7 @@ namespace Kutuphane.MVC.Controllers
         [HttpGet]
         public IActionResult UpdateMember(int id)
         {
-            var query = _memberService.GetById(id);
+            var query = _memberService.GetById(id).Data;
             return View("UpdateMember", query);
         }
 

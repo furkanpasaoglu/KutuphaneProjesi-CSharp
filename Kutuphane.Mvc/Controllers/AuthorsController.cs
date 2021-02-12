@@ -7,7 +7,7 @@ namespace Kutuphane.MVC.Controllers
 {
     public class AuthorsController : Controller
     {
-        private IAuthorService _authorService;
+        private readonly IAuthorService _authorService;
 
         public AuthorsController(IAuthorService writerService)
         {
@@ -16,7 +16,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult Index(string p,int page = 1)
         {
-            return View(_authorService.GetList(p).ToPagedList(page, 3));
+            return View(_authorService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult DeleteAuthor(int id)
         {
-            var query = _authorService.GetById(id);
+            var query = _authorService.GetById(id).Data;
             _authorService.Delete(query);
             TempData["Mesaj"] = query.Name + " Adlı Yazar Silindi!";
             return RedirectToAction("Index", "Authors");
@@ -44,7 +44,7 @@ namespace Kutuphane.MVC.Controllers
         [HttpGet]
         public IActionResult UpdateAuthor(int id)
         {
-            var query = _authorService.GetById(id);
+            var query = _authorService.GetById(id).Data;
             return View("UpdateAuthor", query);
         }
 

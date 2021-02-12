@@ -1,15 +1,13 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
-using Kutuphane.MVC.Models.ListView;
 using X.PagedList;
 
 namespace Kutuphane.MVC.Controllers
 {
     public class CategoriesController : Controller
     {
-        private ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
         public CategoriesController(ICategoryService categoryService)
         {
@@ -18,7 +16,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult Index(string p, int page = 1)
         {
-            return View(_categoryService.GetList(p).ToPagedList(page, 3));
+            return View(_categoryService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
@@ -37,7 +35,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult DeleteCategory(int id)
         {
-            var query = _categoryService.GetById(id);
+            var query = _categoryService.GetById(id).Data;
             _categoryService.Delete(query);
             TempData["Mesaj"] = query.Name + " Kategorisi Silindi!";
             return RedirectToAction("Index");
@@ -46,7 +44,7 @@ namespace Kutuphane.MVC.Controllers
         [HttpGet]
         public IActionResult UpdateCategory(int id)
         {
-            var query = _categoryService.GetById(id);
+            var query = _categoryService.GetById(id).Data;
             return View("UpdateCategory", query);
         }
 

@@ -1,75 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
 {
     public class AuthorManager : IAuthorService
     {
-        private IAuthorDal _authorDal;
+        private readonly IAuthorDal _authorDal;
 
         public AuthorManager(IAuthorDal authorDal)
         {
             _authorDal = authorDal;
         }
 
-        public List<Author> GetList(string p = "")
+        public IDataResult<List<Author>> GetList(string p = "")
         {
             if (!String.IsNullOrEmpty(p))
             {
-                return _authorDal.GetList().Where(x => x.Name.Contains(p)).ToList();
+                return new SuccessDataResult<List<Author>>(_authorDal.GetList().Where(x => x.Name.Contains(p)).ToList(), Messages.YazarListele);
             }
-            else
-            {
-                return _authorDal.GetList().ToList();
-            }
+            return new SuccessDataResult<List<Author>>(_authorDal.GetList().ToList(),Messages.YazarListele);
         }
 
-        public Author GetById(int id)
+        public IDataResult<Author> GetById(int id)
         {
-            return id > 0 ? _authorDal.GetById(p => p.Id == id) : throw new Exception("Hata");
+            if (id > 0)
+            {
+                return new SuccessDataResult<Author>(_authorDal.GetById(p => p.Id == id));
+            }
+            return new ErrorDataResult<Author>(Messages.Hata);
         }
 
-        public void Add(Author author)
+        public IResult Add(Author author)
         {
             if (author != null)
             {
                 _authorDal.Add(author);
+                return new SuccessResult(Messages.YazarEkle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorResult(Messages.Hata);
         }
 
-        public void Update(Author author)
+        public IResult Update(Author author)
         {
             if (author != null)
             {
                 _authorDal.Update(author);
+                return new SuccessResult(Messages.YazarGüncelle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
-
+            return new ErrorResult(Messages.Hata);
         }
 
-        public void Delete(Author author)
+        public IResult Delete(Author author)
         {
             if (author != null)
             {
                 _authorDal.Delete(author);
+                return new SuccessResult(Messages.YazarSil);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorResult(Messages.Hata);
         }
     }
 }

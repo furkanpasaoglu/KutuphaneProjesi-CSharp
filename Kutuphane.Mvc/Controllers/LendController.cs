@@ -8,7 +8,7 @@ namespace Kutuphane.Mvc.Controllers
 {
     public class LendController : Controller
     {
-        private IStatisticService _statisticService;
+        private readonly IStatisticService _statisticService;
 
         public LendController(IStatisticService statisticService)
         {
@@ -17,15 +17,15 @@ namespace Kutuphane.Mvc.Controllers
 
         public IActionResult Index(string p, int page = 1)
         {
-            return View(_statisticService.GetList(p).ToPagedList(page, 3));
+            return View(_statisticService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
         public IActionResult Lend()
         {
-            ViewBag.value1 = _statisticService.GetMember();
-            ViewBag.value2 = _statisticService.GetBook();
-            ViewBag.value3 = _statisticService.GetPersonal();
+            ViewBag.value1 = _statisticService.GetMember().Data;
+            ViewBag.value2 = _statisticService.GetBook().Data;
+            ViewBag.value3 = _statisticService.GetPersonal().Data;
             return View();
         }
 
@@ -41,16 +41,16 @@ namespace Kutuphane.Mvc.Controllers
         [HttpGet]
         public IActionResult ReturnLend(int id)
         {
-            var stat = _statisticService.GetById(id);
-            var query = _statisticService.GetStatisticDetails(stat.BookId, stat.PersonalId, stat.MemberId);
+            var stat = _statisticService.GetById(id).Data;
+            var query = _statisticService.GetStatisticDetails(stat.BookId, stat.PersonalId, stat.MemberId).Data;
             return View("ReturnLend",query); 
         }
 
         [HttpPost]
         public IActionResult ReturnLend(StatisticDetailDto statistic)
         {
-            var stat = _statisticService.GetById(statistic.Id);
-            var query = _statisticService.GetStatisticDetails(statistic.BookId, statistic.PersonalId, statistic.MemberId);
+            var stat = _statisticService.GetById(statistic.Id).Data;
+            //var query = _statisticService.GetStatisticDetails(statistic.BookId, statistic.PersonalId, statistic.MemberId).Data;
             statistic.Status = true;
             _statisticService.Update(stat);
             TempData["Mesaj"] = " Kitap Geri Alındı!";

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
 using X.PagedList;
@@ -12,7 +14,7 @@ namespace Kutuphane.Business.Concrete
 {
     public class CategoryManager : ICategoryService
     {
-        private ICategoryDal _categoryDal;
+        private readonly ICategoryDal _categoryDal;
 
         public CategoryManager(ICategoryDal categoryDal)
         {
@@ -20,57 +22,54 @@ namespace Kutuphane.Business.Concrete
         }
 
 
-        public List<Category> GetList(string p = "")
+        public IDataResult<List<Category>> GetList(string p = "")
         {
             if (!String.IsNullOrEmpty(p))
             {
-                return _categoryDal.GetList().Where(x => x.Name.Contains(p)).ToList();
+                return new SuccessDataResult<List<Category>>(_categoryDal.GetList().Where(x => x.Name.Contains(p)).ToList(), Messages.KategoriListele);
             }
-            else
-            {
-                return _categoryDal.GetList().ToList();
-            }
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetList().ToList(), Messages.KategoriListele);
         }
 
-        public Category GetById(int id)
+        public IDataResult<Category> GetById(int id)
         {
-            return id > 0 ? _categoryDal.GetById(p => p.Id == id) : throw new Exception("Hata");
+            if (id > 0)
+            {
+                return new SuccessDataResult<Category>(_categoryDal.GetById(p => p.Id == id));
+            }
+
+            return new ErrorDataResult<Category>(Messages.Hata);
         }
 
-        public void Add(Category category)
+        public IResult Add(Category category)
         {
             if (category != null)
             {
                 _categoryDal.Add(category);
+                return new SuccessResult(Messages.KategoriEkle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+
+            return new ErrorResult(Messages.Hata);
         }
 
-        public void Update(Category category)
+        public IResult Update(Category category)
         {
             if (category != null)
             {
                 _categoryDal.Update(category);
+                return new SuccessResult(Messages.KategoriGüncelle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorResult(Messages.Hata);
         }
 
-        public void Delete(Category category)
+        public IResult Delete(Category category)
         {
             if (category != null)
             {
                 _categoryDal.Delete(category);
+                return new SuccessResult(Messages.KategoriSil);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorResult(Messages.Hata);
         }
     }
 }

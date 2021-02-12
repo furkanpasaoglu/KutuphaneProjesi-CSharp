@@ -1,73 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
 {
-    public class MemberManager: IMemberService
+    public class MemberManager : IMemberService
     {
-        private IMemberDal _memberDal;
+        private readonly IMemberDal _memberDal;
         public MemberManager(IMemberDal memberDal)
         {
             _memberDal = memberDal;
         }
 
-        public List<Member> GetList(string p = "")
+        public IDataResult<List<Member>> GetList(string p = "")
         {
             if (!String.IsNullOrEmpty(p))
             {
-                return _memberDal.GetList().Where(x => x.Name.Contains(p)).ToList();
+                return new SuccessDataResult<List<Member>>(_memberDal.GetList().Where(x => x.Name.Contains(p)).ToList(), Messages.ÜyeListele);
             }
-            else
-            {
-                return _memberDal.GetList().ToList();
-            }
+            return new SuccessDataResult<List<Member>>(_memberDal.GetList().ToList(), Messages.ÜyeListele);
         }
 
-        public Member GetById(int id)
+        public IDataResult<Member> GetById(int id)
         {
-            return id > 0 ? _memberDal.GetById(p => p.Id == id) : throw new Exception("Hata");
+            if (id > 0)
+            {
+                return new SuccessDataResult<Member>(_memberDal.GetById(p => p.Id == id));
+            }
+            return new ErrorDataResult<Member>(Messages.Hata);
         }
 
-        public void Add(Member member)
+        public IResult Add(Member member)
         {
             if (member != null)
             {
                 _memberDal.Add(member);
+                return new SuccessResult(Messages.ÜyeEkle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+
+            return new ErrorDataResult<Member>(Messages.Hata);
         }
 
-        public void Update(Member member)
+        public IResult Update(Member member)
         {
             if (member != null)
             {
                 _memberDal.Update(member);
+                return new SuccessResult(Messages.ÜyeGüncelle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorDataResult<Member>(Messages.Hata);
         }
 
-        public void Delete(Member member)
+        public IResult Delete(Member member)
         {
             if (member != null)
             {
                 _memberDal.Delete(member);
+                return new SuccessResult(Messages.ÜyeSil);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorDataResult<Member>(Messages.Hata);
         }
     }
 }

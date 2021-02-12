@@ -6,7 +6,7 @@ namespace Kutuphane.MVC.Controllers
 {
     public class BooksController : Controller
     {
-        private IBookService _bookService;
+        private readonly IBookService _bookService;
 
         public BooksController(IBookService bookService)
         {
@@ -14,14 +14,14 @@ namespace Kutuphane.MVC.Controllers
         }
         public IActionResult Index(string p, int page = 1)
         {
-            return View(_bookService.GetList(p).ToPagedList(page, 3));
+            return View(_bookService.GetList(p).Data.ToPagedList(page, 3));
         }
 
         [HttpGet]
         public IActionResult AddBook()
         {
-            ViewBag.value = _bookService.GetCategory();
-            ViewBag.value2 = _bookService.GetAuthor();
+            ViewBag.value = _bookService.GetCategory().Data;
+            ViewBag.value2 = _bookService.GetAuthor().Data;
             return View();
         }
 
@@ -36,7 +36,7 @@ namespace Kutuphane.MVC.Controllers
 
         public IActionResult DeleteBook(int id)
         {
-            var query = _bookService.GetById(id);
+            var query = _bookService.GetById(id).Data;
             _bookService.Delete(query);
             TempData["Mesaj"] = query.Name + " Kitap Silindi!";
             return RedirectToAction("Index", "Books");
@@ -45,18 +45,15 @@ namespace Kutuphane.MVC.Controllers
         [HttpGet]
         public IActionResult UpdateBook(int id)
         {
-            ViewBag.value = _bookService.GetCategory();
-            ViewBag.value2 = _bookService.GetAuthor();
-            var query = _bookService.GetById(id);
+            ViewBag.value = _bookService.GetCategory().Data;
+            ViewBag.value2 = _bookService.GetAuthor().Data;
+            var query = _bookService.GetById(id).Data;
             return View("UpdateBook",query);
         }
 
         [HttpPost]
         public IActionResult UpdateBook(Book book)
         {
-            //Kontrol Edilecek
-            //book.CategoryId = book.Category.Id;
-            //book.AuthorId = book.Author.Id;
             _bookService.Update(book);
             TempData["Mesaj"] = book.Name + " Kitap Bilgileri Güncellendi!";
             return RedirectToAction("Index", "Books");

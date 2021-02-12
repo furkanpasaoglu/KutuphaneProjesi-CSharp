@@ -1,83 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
 
 namespace Kutuphane.Business.Concrete
 {
     public class StatisticManager : IStatisticService
     {
-        private IStatisticDal _statisticDal;
+        private readonly IStatisticDal _statisticDal;
 
         public StatisticManager(IStatisticDal statisticDal)
         {
             _statisticDal = statisticDal;
         }
 
-        public List<StatisticDetailDto> GetList(string p = "")
+        public IDataResult<List<StatisticDetailDto>> GetList(string p = "")
         {
             if (!String.IsNullOrEmpty(p))
             {
-                return _statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p)).ToList();
+                return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p)).ToList(), Messages.IstatistikListele);
             }
-            else
+            return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().ToList(), Messages.IstatistikListele);
+        }
+        public IDataResult<StatisticDetailDto> GetStatisticDetails(int bookId, int personalId, int memberId)
+        {
+            if (bookId > 0 && personalId > 0 && memberId > 0)
             {
-                return _statisticDal.GetStatisticDetails().ToList();
+                return new SuccessDataResult<StatisticDetailDto>(_statisticDal.GetStatisticDetails(bookId, personalId, memberId));
             }
-        }
-        public StatisticDetailDto GetStatisticDetails(int bookId, int personalId, int memberId)
-        {
-            return bookId>0 && personalId>0 && memberId>0 ? _statisticDal.GetStatisticDetails(bookId, personalId, memberId) : throw new Exception("Hata");
+
+            return new ErrorDataResult<StatisticDetailDto>(Messages.Hata);
         }
 
-        public List<SelectListItem> GetMember()
+        public IDataResult<List<SelectListItem>> GetMember()
         {
-           return _statisticDal.GetMember();
+            return new SuccessDataResult<List<SelectListItem>>(_statisticDal.GetMember());
         }
 
-        public List<SelectListItem> GetPersonal()
+        public IDataResult<List<SelectListItem>> GetPersonal()
         {
-            return _statisticDal.GetPersonal();
+            return new SuccessDataResult<List<SelectListItem>>(_statisticDal.GetPersonal());
         }
 
-        public List<SelectListItem> GetBook()
+        public IDataResult<List<SelectListItem>> GetBook()
         {
-            return _statisticDal.GetBook();
+            return new SuccessDataResult<List<SelectListItem>>(_statisticDal.GetBook());
         }
 
-        public Statistic GetById(int id)
+        public IDataResult<Statistic> GetById(int id)
         {
-            return id > 0 ? _statisticDal.GetById(p => p.Id == id) : throw new Exception("Hata");
+            if (id > 0)
+            {
+                return new SuccessDataResult<Statistic>(_statisticDal.GetById(p => p.Id == id));
+            }
+            return new ErrorDataResult<Statistic>(Messages.Hata);
         }
 
-        public void Add(Statistic lend)
+        public IResult Add(Statistic lend)
         {
             if (lend != null)
             {
                 _statisticDal.Add(lend);
+                return new SuccessResult(Messages.IstatistikEkle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+
+            return new ErrorResult(Messages.Hata);
+
         }
 
-        public void Update(Statistic lend)
+        public IResult Update(Statistic lend)
         {
             if (lend != null)
             {
                 _statisticDal.Update(lend);
+                return new SuccessResult(Messages.IstatistikGüncelle);
             }
-            else
-            {
-                throw new Exception("Hata");
-            }
+            return new ErrorResult(Messages.Hata);
         }
     }
 }

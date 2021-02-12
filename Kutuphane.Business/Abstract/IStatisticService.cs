@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
 
 namespace Kutuphane.Business.Abstract
 {
     public interface IStatisticService
     {
-        List<StatisticDetailDto> GetList(string p = "");
-        List<SelectListItem> GetMember();
-        List<SelectListItem> GetPersonal();
-        List<SelectListItem> GetBook();
-        Statistic GetById(int id);
-        StatisticDetailDto GetStatisticDetails(int bookId, int personalId, int memberId);
-        void Add(Statistic lend);
-        void Update(Statistic lend);
+        IDataResult<List<StatisticDetailDto>> GetList(string p = "");
+        IDataResult<List<SelectListItem>> GetMember();
+        IDataResult<List<SelectListItem>> GetPersonal();
+        IDataResult<List<SelectListItem>> GetBook();
+        IDataResult<Statistic> GetById(int id);
+        IDataResult<StatisticDetailDto> GetStatisticDetails(int bookId, int personalId, int memberId);
+        IResult Add(Statistic lend);
+        IResult Update(Statistic lend);
     }
 }

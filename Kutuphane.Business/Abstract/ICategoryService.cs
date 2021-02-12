@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.Entities.Concrete;
-using X.PagedList;
 
 namespace Kutuphane.Business.Abstract
 {
     public interface ICategoryService
     {
-        List<Category> GetList(string p = "");
-        Category GetById(int id);
-        void Add(Category category);
-        void Update(Category category);
-        void Delete(Category category);
+        IDataResult<List<Category>> GetList(string p = "");
+        IDataResult<Category> GetById(int id);
+        IResult Add(Category category);
+        IResult Update(Category category);
+        IResult Delete(Category category);
     }
 }
