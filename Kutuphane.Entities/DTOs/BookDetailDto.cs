@@ -15,6 +15,7 @@ namespace Kutuphane.Entities.DTOs
         public string PublishingHouse { get; set; }
         public string Page { get; set; }
         public bool Status { get; set; }
+        public string Photo { get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
@@ -24,9 +25,9 @@ namespace Kutuphane.Business.Concrete
         {
             if (!String.IsNullOrEmpty(p))
             {
-                return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p)).ToList(), Messages.IstatistikListele);
+                return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p) && x.Status==false).ToList(), Messages.IstatistikListele);
             }
-            return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().ToList(), Messages.IstatistikListele);
+            return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x=> x.Status == false).ToList(), Messages.IstatistikListele);
         }
         public IDataResult<StatisticDetailDto> GetStatisticDetails(int bookId, int personalId, int memberId)
         {

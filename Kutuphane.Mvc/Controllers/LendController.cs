@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.Entities.DTOs;
@@ -50,8 +51,8 @@ namespace Kutuphane.Mvc.Controllers
         public IActionResult ReturnLend(StatisticDetailDto statistic)
         {
             var stat = _statisticService.GetById(statistic.Id).Data;
-            //var query = _statisticService.GetStatisticDetails(statistic.BookId, statistic.PersonalId, statistic.MemberId).Data;
-            statistic.Status = true;
+            stat.MemberDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            stat.Status = true;
             _statisticService.Update(stat);
             TempData["Mesaj"] = " Kitap Geri Alındı!";
             return RedirectToAction("Index");

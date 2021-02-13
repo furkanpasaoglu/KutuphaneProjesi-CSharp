@@ -35,10 +35,6 @@
             <label>İade Tarihi</label>
             @Html.TextBoxFor(p => p.DateofReturn, new { @class = "form-control", required = "", @readonly = false })
         </div>
-        <div style="margin-bottom: 15px">
-            <label>Üyenin Getirdiği Tarih</label>
-            <input type="text" name="MemberDate" value="@DateTime.Now.ToShortDateString()" class="form-control", readonly="" ,required=""  />
-        </div>
     </div>
     <div>
         <button onclick="return confirm('Ödün Kitap Alınacak Emin misiniz?');" class="btn btn-group" style="background-color: #64d8ca;color:white">Ödünç Kitabı Geri Al</button>

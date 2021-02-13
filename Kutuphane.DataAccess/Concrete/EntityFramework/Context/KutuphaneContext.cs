@@ -19,6 +19,8 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
         public DbSet<Penaltie> Penalties { get; set; }
         public DbSet<Personal> Personals { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<About> Abouts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
     }
 }

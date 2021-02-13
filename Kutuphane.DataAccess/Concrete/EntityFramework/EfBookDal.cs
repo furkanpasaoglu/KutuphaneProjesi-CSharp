@@ -30,7 +30,8 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework
                         YearofPublication = b.YearofPublication,
                         PublishingHouse = b.PublishingHouse,
                         Page = b.Page,
-                        Status = b.Status
+                        Status = b.Status,
+                        Photo = b.Photo
                     });
                 return query.ToList();
             }

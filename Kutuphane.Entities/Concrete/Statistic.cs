@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Kutuphane.Core.Kutuphane.Entities;
 
 namespace Kutuphane.Entities.Concrete

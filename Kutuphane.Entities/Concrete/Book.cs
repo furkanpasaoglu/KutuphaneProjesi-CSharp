@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Kutuphane.Core.Kutuphane.Entities;
+﻿using Kutuphane.Core.Kutuphane.Entities;
 
 namespace Kutuphane.Entities.Concrete
 {
@@ -13,5 +12,6 @@ namespace Kutuphane.Entities.Concrete
         public string PublishingHouse { get; set; }
         public string Page { get; set; }
         public bool Status { get; set; }
+        public string Photo { get; set; }
     }
 }

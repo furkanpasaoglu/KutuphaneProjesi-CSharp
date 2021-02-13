@@ -5,9 +5,97 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Themes\web\.browserslistrc" />
+    <None Include="wwwroot\Themes\web\.gitignore" />
+    <None Include="wwwroot\Themes\web\.travis.yml" />
+    <None Include="wwwroot\Themes\web\css\freelancer.css" />
+    <None Include="wwwroot\Themes\web\css\freelancer.min.css" />
+    <None Include="wwwroot\Themes\web\gulpfile.js" />
+    <None Include="wwwroot\Themes\web\img\avataaars.svg" />
+    <None Include="wwwroot\Themes\web\img\BirYilbasiOykusu.jpg" />
+    <None Include="wwwroot\Themes\web\img\droxdeney.jpg" />
+    <None Include="wwwroot\Themes\web\img\kasagi.jpg" />
+    <None Include="wwwroot\Themes\web\img\library.png" />
+    <None Include="wwwroot\Themes\web\img\library3.jpg" />
+    <None Include="wwwroot\Themes\web\img\portfolio\cabin.png" />
+    <None Include="wwwroot\Themes\web\img\portfolio\cake.png" />
+    <None Include="wwwroot\Themes\web\img\portfolio\circus.png" />
+    <None Include="wwwroot\Themes\web\img\portfolio\game.png" />
+    <None Include="wwwroot\Themes\web\img\portfolio\safe.png" />
+    <None Include="wwwroot\Themes\web\img\portfolio\submarine.png" />
+    <None Include="wwwroot\Themes\web\index.html" />
+    <None Include="wwwroot\Themes\web\js\contact_me.js" />
+    <None Include="wwwroot\Themes\web\js\contact_me.min.js" />
+    <None Include="wwwroot\Themes\web\js\freelancer.js" />
+    <None Include="wwwroot\Themes\web\js\freelancer.min.js" />
+    <None Include="wwwroot\Themes\web\js\jqBootstrapValidation.js" />
+    <None Include="wwwroot\Themes\web\js\jqBootstrapValidation.min.js" />
+    <None Include="wwwroot\Themes\web\LICENSE" />
+    <None Include="wwwroot\Themes\web\mail\contact_me.php" />
+    <None Include="wwwroot\Themes\web\README.md" />
+    <None Include="wwwroot\Themes\web\scss\base\_page.scss" />
+    <None Include="wwwroot\Themes\web\scss\base\_variables.scss" />
+    <None Include="wwwroot\Themes\web\scss\components\_buttons.scss" />
+    <None Include="wwwroot\Themes\web\scss\components\_divider.scss" />
+    <None Include="wwwroot\Themes\web\scss\freelancer.scss" />
+    <None Include="wwwroot\Themes\web\scss\layout\_contact.scss" />
+    <None Include="wwwroot\Themes\web\scss\layout\_footer.scss" />
+    <None Include="wwwroot\Themes\web\scss\layout\_masthead.scss" />
+    <None Include="wwwroot\Themes\web\scss\layout\_navbar.scss" />
+    <None Include="wwwroot\Themes\web\scss\layout\_portfolio.scss" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Themes\web\vendor\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\all.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\all.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\brands.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\brands.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\fontawesome.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\fontawesome.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\regular.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\regular.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\solid.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\solid.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\svg-with-js.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\svg-with-js.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\v4-shims.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\css\v4-shims.min.css" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <None Include="wwwroot\Themes\web\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\Themes\web\vendor\jquery-easing\jquery.easing.compatibility.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery-easing\jquery.easing.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery-easing\jquery.easing.min.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.min.map" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.slim.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\Themes\web\vendor\jquery\jquery.slim.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="X.PagedList" Version="8.0.7" />
+    <PackageReference Include="X.PagedList.Mvc.Bootstrap4" Version="8.0.7.1" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
   </ItemGroup>
 
