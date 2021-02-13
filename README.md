@@ -1,1 +1,1 @@
-# KutuphaneProjesi %50 Tamamlandı.
+# KutuphaneProjesi %48 Tamamlandı.
