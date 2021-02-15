@@ -33,6 +33,7 @@ namespace Kutuphane.Mvc.Controllers
         [HttpPost]
         public IActionResult Lend(Statistic statistic)
         {
+            statistic.MemberDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             _statisticService.Add(statistic);
             TempData["Mesaj"] = " Ödünç Verildi!";
             return RedirectToAction("Index");
@@ -40,9 +41,9 @@ namespace Kutuphane.Mvc.Controllers
         }
         
         [HttpGet]
-        public IActionResult ReturnLend(int id)
+        public IActionResult ReturnLend(Statistic statistic)
         {
-            var stat = _statisticService.GetById(id).Data;
+            var stat = _statisticService.GetById(statistic.Id).Data;
             var query = _statisticService.GetStatisticDetails(stat.BookId, stat.PersonalId, stat.MemberId).Data;
             return View("ReturnLend",query); 
         }

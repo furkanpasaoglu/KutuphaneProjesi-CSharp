@@ -28,6 +28,10 @@ namespace Kutuphane.MVC.Controllers
         [HttpPost]
         public IActionResult AddAuthor(Author author)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddAuthor");
+            }
             _authorService.Add(author);
             TempData["Mesaj"] = author.Name + " Adlı Yazar Eklendi!";
             return RedirectToAction("Index");

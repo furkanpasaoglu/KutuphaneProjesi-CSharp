@@ -7,11 +7,13 @@
 <form class="form-group" method="post">
     <div style="margin-top: 15px">
         <label>Yazar Adı</label>
-        @Html.TextBoxFor(y => y.Name, new { @class = "form-control", required = "", placeholder = "Yazar Adını Giriniz..." })
+        @Html.TextBoxFor(y => y.Name, new { @class = "form-control", placeholder = "Yazar Adını Giriniz..." })
+        <div style="color: red">@Html.ValidationMessageFor(y=>y.Name)</div>
     </div>
     <div style="margin-top: 15px">
-        <label>Yazar SoyAdı</label>
-        @Html.TextBoxFor(y => y.Surname, new { @class = "form-control", required = "", placeholder = "Yazar SoyAdını Giriniz..." })
+        <label>Yazar Soyadı</label>
+        @Html.TextBoxFor(y => y.Surname, new { @class = "form-control", placeholder = "Yazar Soyadını Giriniz..." })
+        <div style="color: red">@Html.ValidationMessageFor(y => y.Surname)</div>
     </div>
     <div style="margin-top: 15px">
         <label>Yazar Detay Bilgileri</label>

@@ -35,6 +35,10 @@
             <label>İade Tarihi</label>
             @Html.TextBoxFor(p => p.DateofReturn, new { @class = "form-control", required = "", @readonly = false })
         </div>
+        <div style="margin-top: 15px">
+            <label>Geç Gelen Gün Sayısı</label>
+            <input type="text" class="form-control" id="LateInput" value="@ViewBag.dgr" />
+        </div>
     </div>
     <div>
         <button onclick="return confirm('Ödün Kitap Alınacak Emin misiniz?');" class="btn btn-group" style="background-color: #64d8ca;color:white">Ödünç Kitabı Geri Al</button>

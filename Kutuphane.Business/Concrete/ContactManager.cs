@@ -1,4 +1,5 @@
-﻿using Kutuphane.Business.Abstract;
+﻿using System.Collections.Generic;
+using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
@@ -23,6 +24,11 @@ namespace Kutuphane.Business.Concrete
                 return new SuccessResult();
             }
             return new ErrorResult(Messages.Hata);
+        }
+
+        public IDataResult<List<Contact>> GetList()
+        {
+            return new SuccessDataResult<List<Contact>>(_contactDal.GetList());
         }
     }
 }
