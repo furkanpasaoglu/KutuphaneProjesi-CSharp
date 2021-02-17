@@ -81,6 +81,29 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<Book> GetBook(bool value)
+        {
+            using (KutuphaneContext context = new KutuphaneContext())
+            {
+                return (from x in context.Books where x.Status == value select x).ToList();
+            }
+        }
+
+        public List<Penaltie> GetPenaltie()
+        {
+            using (KutuphaneContext context = new KutuphaneContext())
+            {
+                return (from contextPenalty in context.Penalties select contextPenalty).ToList();
+            }
+        }
+        public decimal GetPenaltieSum()
+        {
+            using (KutuphaneContext context = new KutuphaneContext())
+            {
+                return (from contextPenalty in context.Penalties select contextPenalty).Sum(x=>x.Money);
+            }
+        }
+
         public List<SelectListItem> GetPersonal()
         {
             using (KutuphaneContext context = new KutuphaneContext())

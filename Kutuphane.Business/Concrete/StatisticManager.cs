@@ -54,6 +54,21 @@ namespace Kutuphane.Business.Concrete
             return new SuccessDataResult<List<SelectListItem>>(_statisticDal.GetBook());
         }
 
+        public IDataResult<List<Book>> GetBook(bool value)
+        {
+            return new SuccessDataResult<List<Book>>(_statisticDal.GetBook(value));
+        }
+
+        public IDataResult<List<Penaltie>> GetPenaltie()
+        {
+            return new SuccessDataResult<List<Penaltie>>(_statisticDal.GetPenaltie());
+        }
+
+        public IDataResult<decimal> GetPenaltieSum()
+        {
+            return new SuccessDataResult<decimal>(_statisticDal.GetPenaltieSum());
+        }
+
         public IDataResult<Statistic> GetById(int id)
         {
             if (id > 0)

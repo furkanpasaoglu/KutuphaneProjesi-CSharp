@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Kutuphane.Core.Kutuphane.DataAccess;
 using Kutuphane.Entities.Concrete;
 using Kutuphane.Entities.DTOs;
@@ -12,6 +11,9 @@ namespace Kutuphane.DataAccess.Abstract
         List<StatisticDetailDto> GetStatisticDetails();
         StatisticDetailDto GetStatisticDetails(int bookId, int personalId, int memberId);
         List<SelectListItem> GetBook();
+        List<Book> GetBook(bool value);
+        List<Penaltie> GetPenaltie();
+        decimal GetPenaltieSum();
         List<SelectListItem> GetPersonal();
         List<SelectListItem> GetMember();
     }

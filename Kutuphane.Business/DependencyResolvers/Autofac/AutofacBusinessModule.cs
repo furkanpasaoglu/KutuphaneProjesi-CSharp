@@ -10,24 +10,24 @@ namespace Kutuphane.Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CategoryManager>().As<ICategoryService>();
-            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
-            builder.RegisterType<AuthorManager>().As<IAuthorService>();
-            builder.RegisterType<EfAuthorDal>().As<IAuthorDal>();
-            builder.RegisterType<BookManager>().As<IBookService>();
-            builder.RegisterType<EfBookDal>().As<IBookDal>();
-            builder.RegisterType<MemberManager>().As<IMemberService>();
-            builder.RegisterType<EfMemberDal>().As<IMemberDal>();
-            builder.RegisterType<PersonalManager>().As<IPersonalService>();
-            builder.RegisterType<EfPersonalDal>().As<IPersonalDal>();
-            builder.RegisterType<StatisticManager>().As<IStatisticService>();
-            builder.RegisterType<EfStatisticDal>().As<IStatisticDal>();
-            builder.RegisterType<OperationManager>().As<IOperationService>();
-            builder.RegisterType<EfOperationDal>().As<IOperationDal>();
-            builder.RegisterType<AboutManager>().As<IAboutService>();
-            builder.RegisterType<EfAboutDal>().As<IAboutDal>();
-            builder.RegisterType<ContactManager>().As<IContactService>();
-            builder.RegisterType<EfContactDal>().As<IContactDal>();
+            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+            builder.RegisterType<AuthorManager>().As<IAuthorService>().SingleInstance();
+            builder.RegisterType<EfAuthorDal>().As<IAuthorDal>().SingleInstance();
+            builder.RegisterType<BookManager>().As<IBookService>().SingleInstance();
+            builder.RegisterType<EfBookDal>().As<IBookDal>().SingleInstance();
+            builder.RegisterType<MemberManager>().As<IMemberService>().SingleInstance();
+            builder.RegisterType<EfMemberDal>().As<IMemberDal>().SingleInstance();
+            builder.RegisterType<PersonalManager>().As<IPersonalService>().SingleInstance();
+            builder.RegisterType<EfPersonalDal>().As<IPersonalDal>().SingleInstance();
+            builder.RegisterType<StatisticManager>().As<IStatisticService>().SingleInstance();
+            builder.RegisterType<EfStatisticDal>().As<IStatisticDal>().SingleInstance();
+            builder.RegisterType<OperationManager>().As<IOperationService>().SingleInstance();
+            builder.RegisterType<EfOperationDal>().As<IOperationDal>().SingleInstance();
+            builder.RegisterType<AboutManager>().As<IAboutService>().SingleInstance();
+            builder.RegisterType<EfAboutDal>().As<IAboutDal>().SingleInstance();
+            builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
+            builder.RegisterType<EfContactDal>().As<IContactDal>().SingleInstance();
         }
     }
 }
