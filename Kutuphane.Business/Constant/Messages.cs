@@ -40,5 +40,8 @@
 
         //Hata
         public static string Hata = "Hata Meydana Geldi";
+        public static string BosHata = "Boş Alan Girdiniz";
+        public static string IdKontrol = "Girilen Id Değeri 0'dan Büyük Olmalı";
+
     }
 }

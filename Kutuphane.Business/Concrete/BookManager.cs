@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
+using Kutuphane.Business.ValidationRules.FluentValidation;
+using Kutuphane.Core.Kutuphane.CrossCuttingConcerns.Validation;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
@@ -50,32 +52,23 @@ namespace Kutuphane.Business.Concrete
 
         public IResult Add(Book book)
         {
-            if (book != null)
-            {
-                _bookDal.Add(book);
-                return new SuccessResult(Messages.KitapEkle);
-            }
-            return new ErrorResult(Messages.Hata);
+            ValidationTool.Validate(new BookValidator(),book);
+            _bookDal.Add(book);
+            return new SuccessResult(Messages.KitapEkle);
         }
 
         public IResult Update(Book book)
         {
-            if (book != null)
-            {
-                _bookDal.Update(book);
-                return new SuccessResult(Messages.KitapGüncelle);
-            }
-            return new ErrorResult(Messages.Hata);
+            ValidationTool.Validate(new BookValidator(), book);
+            _bookDal.Update(book);
+            return new SuccessResult(Messages.KitapGüncelle);
         }
 
         public IResult Delete(Book book)
         {
-            if (book != null)
-            {
-                _bookDal.Delete(book);
-                return new SuccessResult(Messages.KitapSil);
-            }
-            return new ErrorResult(Messages.Hata);
+            ValidationTool.Validate(new BookValidator(), book);
+            _bookDal.Delete(book);
+            return new SuccessResult(Messages.KitapSil);
         }
     }
 }
