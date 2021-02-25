@@ -23,9 +23,8 @@ namespace Kutuphane.Business.Concrete
         {
             var result = BusinessRules.Run2(CheckByQueryBlank(p));
             if (result!=null)
-            {
                 return new SuccessDataResult<List<Author>>(_authorDal.GetList().ToList(), Messages.YazarListele);
-            }
+
             return new SuccessDataResult<List<Author>>(_authorDal.GetList().Where(x => x.Name.Contains(p)).ToList(), Messages.YazarListele);
         }
 

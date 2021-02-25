@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Utilities.Business;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
@@ -23,20 +23,19 @@ namespace Kutuphane.Business.Concrete
 
         public IDataResult<List<StatisticDetailDto>> GetList(string p = "")
         {
-            if (!String.IsNullOrEmpty(p))
-            {
-                return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p) && x.Status==false).ToList(), Messages.IstatistikListele);
-            }
-            return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x=> x.Status == false).ToList(), Messages.IstatistikListele);
+            var result = BusinessRules.Run2(CheckByQueryBlank(p));
+            if (result != null)
+                return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x=> x.Status == false).ToList(), Messages.IstatistikListele);
+
+            return new SuccessDataResult<List<StatisticDetailDto>>(_statisticDal.GetStatisticDetails().Where(x => x.MemberName.Contains(p) && x.Status == false).ToList(), Messages.IstatistikListele);
         }
         public IDataResult<StatisticDetailDto> GetStatisticDetails(int bookId, int personalId, int memberId)
         {
-            if (bookId > 0 && personalId > 0 && memberId > 0)
-            {
-                return new SuccessDataResult<StatisticDetailDto>(_statisticDal.GetStatisticDetails(bookId, personalId, memberId));
-            }
+            var result = BusinessRules.Run2(CheckByMultipleIdBlank(bookId,personalId,memberId));
+            if (result != null)
+                return new ErrorDataResult<StatisticDetailDto>(Messages.Hata);
 
-            return new ErrorDataResult<StatisticDetailDto>(Messages.Hata);
+            return new SuccessDataResult<StatisticDetailDto>(_statisticDal.GetStatisticDetails(bookId, personalId, memberId));
         }
 
         public IDataResult<List<SelectListItem>> GetMember()
@@ -71,33 +70,70 @@ namespace Kutuphane.Business.Concrete
 
         public IDataResult<Statistic> GetById(int id)
         {
-            if (id > 0)
-            {
-                return new SuccessDataResult<Statistic>(_statisticDal.GetById(p => p.Id == id));
-            }
-            return new ErrorDataResult<Statistic>(Messages.Hata);
+            var result = BusinessRules.Run2(CheckByIdBlank(id));
+            if (result != null)
+                return new ErrorDataResult<Statistic>(Messages.Hata);
+
+            return new SuccessDataResult<Statistic>(_statisticDal.GetById(p => p.Id == id));
         }
 
         public IResult Add(Statistic lend)
         {
-            if (lend != null)
-            {
-                _statisticDal.Add(lend);
-                return new SuccessResult(Messages.IstatistikEkle);
-            }
+            var result = BusinessRules.Run(CheckEntityBlank(lend));
+            if (result != null)
+                return new ErrorResult(Messages.Hata);
 
-            return new ErrorResult(Messages.Hata);
-
+            _statisticDal.Add(lend);
+            return new SuccessResult(Messages.IstatistikEkle);
         }
 
         public IResult Update(Statistic lend)
         {
-            if (lend != null)
-            {
-                _statisticDal.Update(lend);
-                return new SuccessResult(Messages.IstatistikGüncelle);
-            }
-            return new ErrorResult(Messages.Hata);
+            var result = BusinessRules.Run(CheckEntityBlank(lend));
+            if (result != null)
+                return new ErrorResult(Messages.Hata);
+
+            _statisticDal.Update(lend);
+            return new SuccessResult(Messages.IstatistikGüncelle);
         }
+        private IResult CheckEntityBlank(Statistic statistic)
+        {
+            if (statistic == null)
+            {
+                return new ErrorResult(Messages.Hata);
+            }
+
+            return new SuccessResult();
+        }
+
+        private IDataResult<object> CheckByIdBlank(int id)
+        {
+            if (id > 0)
+            {
+                return new SuccessDataResult<object>();
+            }
+
+            return new ErrorDataResult<object>(Messages.Hata);
+        }
+        private IDataResult<object> CheckByMultipleIdBlank(int id,int id2,int id3)
+        {
+            if (id > 0 && id2 > 0 && id3 > 0)
+            {
+                return new SuccessDataResult<object>();
+            }
+
+            return new ErrorDataResult<object>(Messages.Hata);
+        }
+
+        private IDataResult<object> CheckByQueryBlank(string p)
+        {
+            if (!String.IsNullOrEmpty(p))
+            {
+                return new SuccessDataResult<object>();
+            }
+
+            return new ErrorDataResult<object>();
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
 using Kutuphane.Business.ValidationRules.FluentValidation;
 using Kutuphane.Core.Kutuphane.CrossCuttingConcerns.Validation;
+using Kutuphane.Core.Kutuphane.Utilities.Business;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.Entities.Concrete;
@@ -24,11 +25,11 @@ namespace Kutuphane.Business.Concrete
 
         public IDataResult<List<BookDetailDto>> GetList(string p)
         {
-            if (!String.IsNullOrEmpty(p))
-            {
-                return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails().Where(x => x.Name.Contains(p)).ToList(),Messages.KitapListele);
-            }
-            return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails().ToList(),Messages.KitapListele);
+            var result = BusinessRules.Run2(CheckByQueryBlank(p));
+            if (result != null)
+                return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails().ToList(), Messages.KitapListele);
+
+            return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails().Where(x => x.Name.Contains(p)).ToList(), Messages.KitapListele);
         }
 
         public IDataResult<List<SelectListItem>> GetCategory()
@@ -43,16 +44,21 @@ namespace Kutuphane.Business.Concrete
 
         public IDataResult<Book> GetById(int id)
         {
-            if (id > 0)
-            {
-                return new SuccessDataResult<Book>(_bookDal.GetById(p => p.Id == id));
-            }
-            return new ErrorDataResult<Book>(Messages.Hata);
+            var result = BusinessRules.Run2(CheckByIdBlank(id));
+            if (result != null)
+                return new ErrorDataResult<Book>(Messages.Hata);
+
+            return new SuccessDataResult<Book>(_bookDal.GetById(p => p.Id == id));
+            
         }
 
         public IResult Add(Book book)
         {
-            ValidationTool.Validate(new BookValidator(),book);
+            ValidationTool.Validate(new BookValidator(), book);
+            var result = BusinessRules.Run(CheckEntityBlank(book));
+            if (result != null)
+                return new ErrorResult(Messages.Hata);
+
             _bookDal.Add(book);
             return new SuccessResult(Messages.KitapEkle);
         }
@@ -60,6 +66,10 @@ namespace Kutuphane.Business.Concrete
         public IResult Update(Book book)
         {
             ValidationTool.Validate(new BookValidator(), book);
+            var result = BusinessRules.Run(CheckEntityBlank(book));
+            if (result != null)
+                return new ErrorResult(Messages.Hata);
+
             _bookDal.Update(book);
             return new SuccessResult(Messages.KitapGüncelle);
         }
@@ -67,8 +77,40 @@ namespace Kutuphane.Business.Concrete
         public IResult Delete(Book book)
         {
             ValidationTool.Validate(new BookValidator(), book);
+            var result = BusinessRules.Run(CheckEntityBlank(book));
+            if (result != null)
+                return new ErrorResult(Messages.Hata);
+
             _bookDal.Delete(book);
             return new SuccessResult(Messages.KitapSil);
+        }
+        private IDataResult<object> CheckByQueryBlank(string p)
+        {
+            if (!String.IsNullOrEmpty(p))
+            {
+                return new SuccessDataResult<object>();
+            }
+
+            return new ErrorDataResult<object>();
+        }
+        private IResult CheckEntityBlank(Book book)
+        {
+            if (book == null)
+            {
+                return new ErrorResult(Messages.Hata);
+            }
+
+            return new SuccessResult();
+        }
+
+        private IDataResult<object> CheckByIdBlank(int id)
+        {
+            if (id > 0)
+            {
+                return new SuccessDataResult<object>();
+            }
+
+            return new ErrorDataResult<object>(Messages.Hata);
         }
     }
 }
