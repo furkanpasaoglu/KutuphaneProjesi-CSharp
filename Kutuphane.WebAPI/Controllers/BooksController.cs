@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kutuphane.WebAPI.Controllers
 {
@@ -16,6 +17,7 @@ namespace Kutuphane.WebAPI.Controllers
 
         [HttpGet]
         [Route("[action]")]
+        [Authorize(Roles = "Book.List")]
         public IActionResult Get()
         {
             var result = _bookService.GetList();

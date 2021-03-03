@@ -74,7 +74,7 @@ namespace Kutuphane.Business.Concrete
             if (result != null)
                 return new ErrorDataResult<Statistic>(Messages.Hata);
 
-            return new SuccessDataResult<Statistic>(_statisticDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Statistic>(_statisticDal.Get(p => p.Id == id));
         }
 
         public IResult Add(Statistic lend)

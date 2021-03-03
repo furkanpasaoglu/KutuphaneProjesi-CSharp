@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Kutuphane.Business.Abstract;
 using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.Entities.Concrete;
 using Kutuphane.Core.Kutuphane.Utilities.Business;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.DataAccess.Abstract;
-using Kutuphane.Entities.Concrete;
 
 namespace Kutuphane.Business.Concrete
 {
@@ -33,7 +33,7 @@ namespace Kutuphane.Business.Concrete
             if (result != null)
                 return new ErrorDataResult<Member>(Messages.Hata);
 
-            return new SuccessDataResult<Member>(_memberDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Member>(_memberDal.Get(p => p.Id == id));
         }
 
         public IResult Add(Member member)

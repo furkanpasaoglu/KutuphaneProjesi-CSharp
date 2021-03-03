@@ -14,7 +14,7 @@ namespace Kutuphane.Core.Kutuphane.DataAccess
         List<T> GetList(Func<T, bool> filter);
         */
         List<T> GetList();
-        T GetById(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);

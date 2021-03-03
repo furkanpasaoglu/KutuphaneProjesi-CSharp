@@ -34,7 +34,7 @@ namespace Kutuphane.Business.Concrete
             if (result!=null)
                 return new ErrorDataResult<Author>(Messages.Hata);
 
-            return new SuccessDataResult<Author>(_authorDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Author>(_authorDal.Get(p => p.Id == id));
 
         }
 

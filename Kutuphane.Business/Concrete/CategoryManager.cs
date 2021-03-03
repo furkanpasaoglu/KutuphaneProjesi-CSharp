@@ -35,7 +35,7 @@ namespace Kutuphane.Business.Concrete
             if (result != null)
                 return new ErrorDataResult<Category>(Messages.Hata);
 
-            return new SuccessDataResult<Category>(_categoryDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Category>(_categoryDal.Get(p => p.Id == id));
 
         }
 

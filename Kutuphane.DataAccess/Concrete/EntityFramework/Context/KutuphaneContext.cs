@@ -1,4 +1,5 @@
-﻿using Kutuphane.Entities.Concrete;
+﻿using Kutuphane.Core.Kutuphane.Entities.Concrete;
+using Kutuphane.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
@@ -9,7 +10,6 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
         {
             optionsBuilder.UseSqlServer(@"server=FURKAN-PC\SQLEXPRESS;Database=DbKutuphane; Trusted_Connection=true");
         }
-
         
         public DbSet<Book> Books { get; set; }
         public DbSet<Case> Cases { get; set; }
@@ -21,6 +21,8 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
         public DbSet<Author> Authors { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
     }
 }

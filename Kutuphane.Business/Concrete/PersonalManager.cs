@@ -34,7 +34,7 @@ namespace Kutuphane.Business.Concrete
             if (result != null)
                 return new ErrorDataResult<Personal>(Messages.Hata);
 
-            return new SuccessDataResult<Personal>(_personelDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Personal>(_personelDal.Get(p => p.Id == id));
         }
 
         public IResult Add(Personal personal)

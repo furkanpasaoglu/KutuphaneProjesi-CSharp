@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Core.Kutuphane.Entities.Concrete;
 using Kutuphane.Entities.Concrete;
 
 namespace Kutuphane.WebAPI.Controllers

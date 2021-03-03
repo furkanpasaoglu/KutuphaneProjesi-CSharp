@@ -48,7 +48,7 @@ namespace Kutuphane.Business.Concrete
             if (result != null)
                 return new ErrorDataResult<Book>(Messages.Hata);
 
-            return new SuccessDataResult<Book>(_bookDal.GetById(p => p.Id == id));
+            return new SuccessDataResult<Book>(_bookDal.Get(p => p.Id == id));
             
         }
 
