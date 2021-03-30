@@ -93,6 +93,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="X.PagedList" Version="8.0.7" />
     <PackageReference Include="X.PagedList.Mvc.Bootstrap4" Version="8.0.7.1" />

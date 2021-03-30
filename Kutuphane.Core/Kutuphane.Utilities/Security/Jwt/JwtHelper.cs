@@ -14,7 +14,7 @@ namespace Kutuphane.Core.Kutuphane.Utilities.Security.Jwt
     public class JwtHelper : ITokenHelper
     {
         public IConfiguration Configuration { get; }
-        private TokenOptions _tokenOptions;
+        private readonly TokenOptions _tokenOptions;
         private DateTime _accessTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)

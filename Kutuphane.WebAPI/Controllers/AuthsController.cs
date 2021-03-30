@@ -8,7 +8,7 @@ namespace Kutuphane.WebAPI.Controllers
     [ApiController]
     public class AuthsController : ControllerBase
     {
-        private IAuthService _authService;
+        private readonly IAuthService _authService;
 
         public AuthsController(IAuthService authService)
         {

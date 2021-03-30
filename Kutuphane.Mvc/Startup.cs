@@ -8,6 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kutuphane.Core.Kutuphane.DependencyResolvers;
+using Kutuphane.Core.Kutuphane.Extensions;
+using Kutuphane.Core.Kutuphane.Utilities.IoC;
+using Kutuphane.Core.Kutuphane.Utilities.Security.Encryption;
+using Kutuphane.Core.Kutuphane.Utilities.Security.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Kutuphane.Mvc
 {
@@ -24,6 +31,26 @@ namespace Kutuphane.Mvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule()
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,12 +66,19 @@ namespace Kutuphane.Mvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

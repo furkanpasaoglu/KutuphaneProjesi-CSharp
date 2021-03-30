@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<form asp-action="Register" asp-controller="Home" method="post" class="form-group">
+    <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
+    <div class="form-group">
+        <label for="firstname">Adınız</label>
+        <input type="text" class="form-control" name="firstname" placeholder="furkan">
+    </div>
+
+    <div class="form-group">
+        <label for="lastname">Soyadınız</label>
+        <input type="text" class="form-control" name="lastname"  placeholder="paşaoğlu">
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-Posta</label>
+        <input type="email" class="form-control" name="email"  placeholder="name@example.com">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Parola</label>
+        <input type="password" class="form-control" name="password"  placeholder="Parola">
+    </div>
+
+    <input type="submit" class="w-100 btn btn-lg btn-primary" value="Kayıt Ol" />
+</form>
+

@@ -9,7 +9,6 @@ namespace Kutuphane.Business.ValidationRules.FluentValidation
         public BookValidator()
         {
             RuleFor(p => p.Name).NotEmpty().WithMessage(Messages.BosHata);
-            RuleFor(p => p.Id).LessThanOrEqualTo(0).WithMessage(Messages.IdKontrol);
         }
     }
 }

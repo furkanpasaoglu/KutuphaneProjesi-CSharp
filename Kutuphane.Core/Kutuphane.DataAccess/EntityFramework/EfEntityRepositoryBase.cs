@@ -70,7 +70,7 @@ namespace Kutuphane.Core.Kutuphane.DataAccess.EntityFramework
         */
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            using (var context = new TContext())
+            using (TContext context = new TContext())
             {
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }

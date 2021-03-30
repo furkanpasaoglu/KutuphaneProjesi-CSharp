@@ -60,7 +60,8 @@
 </head>
 <body>
 
-    <div class="sidebar">
+
+<div class="sidebar">
         <a href="/Home/"> <i class="glyphicon glyphicon-home"></i> &nbsp; Ana Sayfa</a>
         <a href="/Categories/"><i class="glyphicon glyphicon-list"></i> &nbsp; Kategoriler</a>
         <a href="/Books/"><i class="glyphicon glyphicon-book"></i> &nbsp; Kitaplar</a>
@@ -78,15 +79,15 @@
         <a href="#"><i class="glyphicon glyphicon-cog"></i> &nbsp; Ayarlar</a>
         <a href="#"><i class="glyphicon glyphicon-phone"></i> &nbsp; Yardım</a>
         <a href="#"><i class="glyphicon glyphicon-off"></i> &nbsp; Çıkış</a>
-    </div>
+</div>
 
 <div class="main">
     <div style="margin-top: 15px;">
-        @if (TempData["Mesaj"] !=null)
+        @if (TempData["Mesaj"] != null)
         {
-            <div class="alert alert-success alert-dismissible">
+            <div class="@TempData["Class"]">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Başarılı!</strong> @TempData["Mesaj"]
+                <strong>@TempData["Mesaj"]</strong>
             </div>
         }
     </div>

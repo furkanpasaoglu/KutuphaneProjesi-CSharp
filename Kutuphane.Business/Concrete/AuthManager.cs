@@ -1,5 +1,7 @@
 ﻿using Kutuphane.Business.Abstract;
+using Kutuphane.Business.BusinessAspects.Autofac;
 using Kutuphane.Business.Constant;
+using Kutuphane.Core.Kutuphane.CrossCuttingConcerns.Caching;
 using Kutuphane.Core.Kutuphane.Entities.Concrete;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
 using Kutuphane.Core.Kutuphane.Utilities.Security.Hashing;
@@ -12,7 +14,6 @@ namespace Kutuphane.Business.Concrete
     {
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
-
         public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
             _userService = userService;
@@ -48,7 +49,6 @@ namespace Kutuphane.Business.Concrete
             {
                 return new ErrorDataResult<Member>(Messages.PasswordError);
             }
-
             return new SuccessDataResult<Member>(userToCheck, Messages.SuccessfulLogin);
         }
 

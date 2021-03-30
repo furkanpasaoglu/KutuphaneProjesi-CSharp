@@ -4,6 +4,9 @@ using Kutuphane.Business.Concrete;
 using Kutuphane.Core.Kutuphane.Utilities.Security.Jwt;
 using Kutuphane.DataAccess.Abstract;
 using Kutuphane.DataAccess.Concrete.EntityFramework;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using Kutuphane.Core.Kutuphane.Utilities.Interceptors;
 
 namespace Kutuphane.Business.DependencyResolvers.Autofac
 {
@@ -34,6 +37,14 @@ namespace Kutuphane.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
+
         }
     }
 }

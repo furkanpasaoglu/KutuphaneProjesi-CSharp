@@ -1,9 +1,13 @@
 ﻿using Kutuphane.Business.Abstract;
+using Kutuphane.Business.BusinessAspects.Autofac;
 using Kutuphane.Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 namespace Kutuphane.MVC.Controllers
 {
+
+    [SecuredOperation("admin")]
     public class BooksController : Controller
     {
         private readonly IBookService _bookService;
@@ -12,6 +16,7 @@ namespace Kutuphane.MVC.Controllers
         {
             _bookService = bookService;
         }
+
         public IActionResult Index(string p, int page = 1)
         {
             return View(_bookService.GetList(p).Data.ToPagedList(page, 3));

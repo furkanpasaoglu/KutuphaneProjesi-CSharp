@@ -7,7 +7,6 @@
         public string Surname { get; set; }
         public string Mail { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public bool Status { get; set; }

@@ -19,6 +19,7 @@ namespace Kutuphane.Business.Concrete
             _authorDal = authorDal;
         }
 
+
         public IDataResult<List<Author>> GetList(string p = "")
         {
             var result = BusinessRules.Run2(CheckByQueryBlank(p));

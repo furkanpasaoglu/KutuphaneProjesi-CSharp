@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.BusinessAspects.Autofac;
 using Kutuphane.Business.Constant;
 using Kutuphane.Business.ValidationRules.FluentValidation;
+using Kutuphane.Core.Kutuphane.Aspects.Autofac.Caching;
+using Kutuphane.Core.Kutuphane.Aspects.Autofac.Performance;
+using Kutuphane.Core.Kutuphane.Aspects.Autofac.Validation;
 using Kutuphane.Core.Kutuphane.CrossCuttingConcerns.Validation;
 using Kutuphane.Core.Kutuphane.Utilities.Business;
 using Kutuphane.Core.Kutuphane.Utilities.Results;
@@ -14,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kutuphane.Business.Concrete
 {
+    [SecuredOperation("Admin")]
     public class BookManager : IBookService
     {
         private readonly IBookDal _bookDal;
@@ -32,11 +37,12 @@ namespace Kutuphane.Business.Concrete
             return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails().Where(x => x.Name.Contains(p)).ToList(), Messages.KitapListele);
         }
 
+        [CacheAspect]
         public IDataResult<List<SelectListItem>> GetCategory()
         {
             return new SuccessDataResult<List<SelectListItem>>(_bookDal.GetCategory());
         }
-
+        [CacheAspect]
         public IDataResult<List<SelectListItem>> GetAuthor()
         {
             return new SuccessDataResult<List<SelectListItem>>(_bookDal.GetAuthor());
@@ -52,9 +58,9 @@ namespace Kutuphane.Business.Concrete
             
         }
 
+        [ValidationAspect(typeof(BookValidator))]
         public IResult Add(Book book)
         {
-            ValidationTool.Validate(new BookValidator(), book);
             var result = BusinessRules.Run(CheckEntityBlank(book));
             if (result != null)
                 return new ErrorResult(Messages.Hata);
@@ -63,9 +69,9 @@ namespace Kutuphane.Business.Concrete
             return new SuccessResult(Messages.KitapEkle);
         }
 
+        [ValidationAspect(typeof(BookValidator))]
         public IResult Update(Book book)
         {
-            ValidationTool.Validate(new BookValidator(), book);
             var result = BusinessRules.Run(CheckEntityBlank(book));
             if (result != null)
                 return new ErrorResult(Messages.Hata);
@@ -74,9 +80,10 @@ namespace Kutuphane.Business.Concrete
             return new SuccessResult(Messages.KitapGüncelle);
         }
 
+        [ValidationAspect(typeof(BookValidator))]
+        [CacheRemoveAspect("IBookService.Get")]
         public IResult Delete(Book book)
         {
-            ValidationTool.Validate(new BookValidator(), book);
             var result = BusinessRules.Run(CheckEntityBlank(book));
             if (result != null)
                 return new ErrorResult(Messages.Hata);
