@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kutuphane.Business.Concrete
 {
-    [SecuredOperation("Admin")]
     public class BookManager : IBookService
     {
         private readonly IBookDal _bookDal;

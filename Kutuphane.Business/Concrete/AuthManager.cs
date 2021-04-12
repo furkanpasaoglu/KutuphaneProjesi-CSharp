@@ -67,5 +67,6 @@ namespace Kutuphane.Business.Concrete
             var accessToken = _tokenHelper.CreateToken(member, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
+
     }
 }

@@ -1,10 +1,8 @@
-﻿
-@{
-    ViewData["Title"] = "Giriş Yap";
-    Layout = "~/Views/Shared/Layout.cshtml";
+﻿@{
+    ViewData["Title"] = "Login";
 }
 
-<form asp-action="Login" asp-controller="Home" method="post" class="form-group">
+<form asp-action="Index" asp-controller="Login" method="post" class="form-group">
     <h1 class="h3 mb-3 fw-normal">Giriş Yap</h1>
 
     <div class="form-group">
@@ -17,7 +15,6 @@
         <input type="password" class="form-control" name="password" placeholder="Parola">
     </div>
 
-    <input type="submit" class="w-100 btn btn-lg btn-primary" value="Giriş Yap"/>
+    <input type="submit" class="w-100 btn btn-lg btn-primary" value="Giriş Yap" />
 </form>
-
 

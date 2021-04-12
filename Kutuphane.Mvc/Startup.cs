@@ -32,6 +32,8 @@ namespace Kutuphane.Mvc
         {
             services.AddControllersWithViews();
 
+            services.AddSession();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -72,6 +74,8 @@ namespace Kutuphane.Mvc
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

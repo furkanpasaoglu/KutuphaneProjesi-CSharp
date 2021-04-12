@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kutuphane.Business.Abstract;
+using Kutuphane.Business.BusinessAspects.Autofac;
 using Kutuphane.Business.Constant;
 using Kutuphane.Core.Kutuphane.Utilities.Business;
 using Kutuphane.Core.Kutuphane.Utilities.Results;

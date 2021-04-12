@@ -8,7 +8,7 @@ namespace Kutuphane.DataAccess.Concrete.EntityFramework.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=FURKAN-PC\SQLEXPRESS;Database=DbKutuphane; Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"server=localhost;Database=DbKutuphane; Trusted_Connection=true");
         }
         
         public DbSet<Book> Books { get; set; }
